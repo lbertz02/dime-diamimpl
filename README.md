@@ -1,1 +1,1 @@
-# diamimp - Recommendations for Diameter Improvements
+# diamimp - Recommendations for Diameter Specificationss
