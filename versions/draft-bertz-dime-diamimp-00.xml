@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC4004 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4004.xml">
+<!ENTITY RFC4950 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4950.xml">
+<!ENTITY RFC5447 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5447.xml">
+<!ENTITY RFC5777 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5777.xml">
+<!ENTITY RFC5778 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5778.xml">
 <!ENTITY RFC6733 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6733.xml">
+<!ENTITY RFC7155 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7155.xml">
 <!ENTITY RFC7222 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7222.xml">
+<!ENTITY RFC7423 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7423.xml">
+<!ENTITY RFC7683 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7683.xml">
+<!ENTITY RFC7944 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7944.xml">
+<!ENTITY RFC4006BIS SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.bertz-dime-rfc4006bis.xml">
+<!ENTITY IDLOAD SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-dime-load-09.xml">
+
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
 <rfc category="std" docName="draft-bertz-dime-diamimpr-01" ipr="pre5378Trust200902">
  <front>
-   <title>Recommendations for the Imrpovement of Diameter Specifications</title>
+   <title>Recommendations for the Improvement of Diameter Specifications</title>
 
    <author fullname="Lyle Bertz" initials="L." surname="Bertz">
      <organization>Sprint</organization>
@@ -35,42 +47,87 @@
    <keyword>errors</keyword>
    <abstract>
 <t>
-     This document reports on common Diameter specification errors and use cases 
-     not directly supported Diameter formats but used in specifications. 
-     Recommendations are made to reduce errors, support common use cases and 
-     build specifications in such a way that programmtic verification of Diameter 
-     specifications can occur.
+This document reports on formatting errors, uses cases, and inconsistencies found in various 
+standards specifications related to the Diameter interface requirements. Recommendations are 
+made to reduce errors, support common use cases and build specifications in such a way that 
+programmatic verification of Diameter specifications can be done with minimal to no errors.
 </t>
    </abstract>
  </front>
+
  <middle>
    <section title="Introduction">
-     <t>This document looks at common errors and uses of Diameter in order to document
-     requirements and possible extensions to the Diameter CCF.  It is by no means an
-     exhuastive analysis of all Diameter specifications but provides a survey of a few
+     <t>This document identifies common errors and uses of Diameter in order to document 
+     requirements and possible extensions to the Diameter Command Code Format (CCF) and 
+     other formats, e.g. Grouped Attribute Value Pair (AVP) format defined in <xref target="RFC6733"/>.  It is by no means an
+     exhaustive analysis of all Diameter specifications but provides a survey of a few
      dozen RFCs and 3GPP Technical Specifications to determine what improvements can 
      be made in Diameter specifications.</t>
-     <t>There are no issues with respect to over the wire communication of Diameter. 
-     However, implementation time and minor issues arise when implementing specific
-     Diameter applications that can be improved.  To set a benchmark for this, the 
-     goal of automated checking and language generation was made.  The '.dia' format
-     of a fork of the diafuzzer project [] was used. It is a simple, deterministic
-     format that provides semantic cross checks of Diamete applications.</t>
-     <t>With the goal of automated 'dia' format in mind a survey of RFCs and 3GPP technical 
-     specifications was excecuted.  During the process several issues, errors, ommissions 
-     and usage patterns were discovered.</t>
-     <t>Diameter Applications Design Guidelines [rfc 7423] does an excellent job of noting
-     some of the use cases but it does not describe how the CCF may represent this information.
-     To do this the dia format was extended. A few use cases were also identified that were not
-     covered in the Guideline specification.</t>
+     <t>There are no issues with respect to over the wire communication of Diameter as 
+     evidenced by the successful implementation of Diameter applications based upon the 
+     specifications surveyed in this document. However, the development and implementation 
+     time of Diameter applications can be significantly improved when errors and 
+     inconsistencies of the message format as documented in the specifications are minimized 
+     or non-existent. An automated tool was developed and used to perform the survey analysis 
+     of the technical specifications. The tool would perform automated checking, syntax validation, 
+     and language generation and was ran against the various specifications to set a benchmark on 
+     the current state and quality of the Diameter specifications. The '.dia' format of a fork of 
+     the diafuzzer project (https://github.com/Orange-OpenSource/diafuzzer) was used. It is a simple,
+     deterministic format that provides semantic cross checks of Diameter specifications.</t>
+     <t>With the goal of automated '.dia' format in mind a survey of various Diameter related RFCs and 
+     3GPP Technical Specifications was executed. During the process several issues, errors, omissions 
+     and usage patterns were discovered, and they are outlined in section 4 (Specification Survey) of 
+     this document.</t>
+     <t>Diameter Applications Design Guidelines <xref target="RFC7423"/> does an excellent job of noting 
+     common diameter desing use cases but it does not describe how the CCF or related grammers may represent 
+     some of these scenarios. To do this the '.dia' format was extended. A few new use cases were also 
+     identified that were not covered in <xref target="RFC7423"/>.</t>
    </section>
+
      <section title="Requirements Language">
        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
        document are to be interpreted as described in <xref
        target="RFC2119">RFC 2119</xref>.</t>
      </section>
-<section title="Survery of Existing Specifications" anchor="Survey">
+<section title="Survey of Existing Specifications" anchor="Survey">
+
+<t>The tool was ran against the following standards specifications for diameter applications:
+<list>
+<t><xref target="RFC4004"/></t>
+<t>RFC 4006 bis <xref target="RFC4006BIS"/></t>
+<t><xref target="RFC4950"/></t>
+<t><xref target="RFC5447"/></t>
+<t><xref target="RFC5777"/></t>
+<t><xref target="RFC5778"/></t>
+<t>Diameter Load (draft) <xref target="IDLOAD"/></t>
+<t><xref target="RFC6733"/></t>
+<t><xref target="RFC7155"/></t>
+<t><xref target="RFC7683"/></t>
+<t><xref target="RFC7944"/></t>
+<t>3GPP TS 29.213</t>
+<t>3GPP TS 29.345</t>
+<t>3GPP TS 29.344</t>
+<t>3GPP TS 29.343</t>
+<t>3GPP TS 29.338</t>
+<t>3GPP TS 29.337</t>
+<t>3GPP TS 29.336</t>
+<t>3GPP TS 29.329</t>
+<t>3GPP TS 32.299</t>
+<t>3GPP TS 29.154</t>
+<t>3GPP TS 29.215</t>
+<t>3GPP TS 29.368</t>
+<t>3GPP TS 29.128</t>
+<t>3GPP TS 29.173</t>
+<t>3GPP TS 29.217</t>
+<t>3GPP TS 29.273</t>
+<t>3GPP TS 29.272</t>
+<t>3GPP TS 29.061</t>
+<t>3GPP TS 29.212</t>
+
+</list>
+</t>
+
   <section title="Summary of Challenges and Errors" anchor="commonerrors">
     <t>Enumeration issues have their own section below.  General issues include but are not limited to:
     	<list>
@@ -82,14 +139,14 @@
     	<t>Case Sensitive inconsistencies.</t>
     	<t>The wrong name for AVPs in Tables, referenced across specs, etc. but have the same AVP Code.</t>
     	<t>Claiming an AVP is defined in a spec when in fact it is referenced.</t>
-    	<t>Incorrect references</t>
+    	<t>Incorrect references.</t>
     	<t>Not noting an AVP is referenced at all but including it in a Group or Message.</t>
     	<t>Some AVPs mentioned in Groups and not defined anywhere.  This happened a few times in Accounting 
     	related 3GPP specifications.</t>
     	</list>
     </t>
     <t>Enumerations do not have a specific CCF. Over the wire the labels themselves are not used as the value
-    is transported in integer formats. When recieved by a Client or Server the value is checked against a list of
+    is transported in integer formats. When received by a Client or Server the value is checked against a list of
     valid values.   The label would only appear in displayed information for errors, logging, etc.  However, 
     many of the specifications used varying case, spaces, parenthesis around numbers, tables, numbers then labels,
     labels then numbers, etc.</t>
@@ -98,33 +155,33 @@
     to a coding language capture the value assigned to the label.  This yielded partial success.  In some cases, especially
     billing in 3GPP, hand edits were required to fix duplicate labels and formats that were inconsistent with the rest of the 
     document's enumerations.</t>
-    <t>A few cases even refrenced thier values as coming from other enums or registries assocaited with the IETF or OMA.  These
-    were removed in some cases due to their size or copied from the existing enumeration if it had already been geneated.</t>
-    <t>Although enumerations are now available in the intermediate 'dia' format, many of the labels will not be valid in specific
+    <t>A few cases even referenced their values as coming from other enums or registries associated with the IETF or OMA.  These
+    were removed in some cases due to their size or copied from the existing enumeration if it had already been generated.</t>
+    <t>Although enumerations are now available in the intermediate '.dia' format, many of the labels will not be valid in specific
     programming languages.  More work is required regarding enumerations to accommodate these situations.</t>
   </section>
   <section title="Summary of Indirect Use Cases" anchor="indirectusecases">
-    <t>Several Use Cases appeared that where the dia format was extended to capture them.</t>
+    <t>Several Use Cases appeared that where the .dia format was extended to capture them.</t>
     	<section title="Refinements" anchor="refinements">
     	<t>Refinement (Extension) of Commands and Groups.  This is a case where the same AVP/Command is referenced, i.e. same code or
-    	vendor/code combination but the underlying members of the strucutre are different.  Two variants of this were found:
+    	vendor/code combination but the underlying members of the structure are different.  Two variants of this were found:
     		<list><t>The base (original definition) of the structure was refined.  In this case, the 'Refines' Statement in the header
     			may not include the application.</t>
     			<t>A refinement of a refinement.   In this case the specific refinement (AVP + App ID it was specified in) was the 
     			refinement.</t>
     		</list>
     	</t>
-    	<t>This is not inherience.  In inheritence the children also inherit the attributes (AVPs) of the parent. In many cases
-    	the new definition removed some of the parents AVPs or furhter limited the occurence amount of the AVPs.</t>
+    	<t>This is not inheritance.  In inheritance the children also inherit the attributes (AVPs) of the parent. In many cases
+    	the new definition removed some of the parents AVPs or further limited the occurrence amount of the AVPs.</t>
     	<t>Refinements can only occur if the Command/Grouped AVP is extensible, i.e. it includes *[AVP] in its definition.</t>
     	<t>   A value of 2[AVP] would not be considered extensible and its behavior is undefined.  Can someone limit the number of AVPs
-    	present in a Command/Grouped AVP when that value is less then the total sum of the upper bounds of all member AVPs.  For example,
-    	if a  Grouped AVP permits at most 2 occurences of AVP member "X" and 2 of AVP member "Y", how/why could/would one limit the 
+    	present in a Command/Grouped AVP when that value is less than the total sum of the upper bounds of all member AVPs.  For example,
+    	if a  Grouped AVP permits at most 2 occurrences of AVP member "X" and 2 of AVP member "Y", how/why could/would one limit the 
     	Grouped AVP to no more than 3 AVPs? </t>
-    	<t>In the dia format Refinement is captured by adding 'Refines [application id]' at the end of the header/Grouped AVP definition.</t>
+    	<t>In the .dia format Refinement is captured by adding 'Refines [application id]' at the end of the header/Grouped AVP definition.</t>
     	</section>
     	<section title="Enumerations" anchor="enumissues">
-    	<t>Enumeration use cases included defintions that referenced
+    	<t>Enumeration use cases included definitions that referenced
     	<list>
     		<t>other Enumerations</t>
     		<t>registries found on the web</t>
@@ -133,33 +190,33 @@
     	<t>In the second case the Enumeration was typically removed.</t>
     	<t>In a few cases Enumerations referenced other enumerations and then, in Notes, limited the values (was a proper subset). The opposite 
     	case (a proper superset) never presented itself.</t>
-    	<t>Later specifications assigned Unsigned32 as a value in what appears to be an attempt to avoid registries or provide some psuedo 
+    	<t>Later specifications assigned Unsigned32 as a value in what appears to be an attempt to avoid registries or provide some pseudo 
     	extensibility.  The purpose is actually unclear.</t>
     	</section>
   </section>
   <section title="Summary of Ingestion Barriers" anchor="codegenbarriers">
     <t>Errors, inconsistencies and Use Cases that could not be easily fulfilled aside.  Format differences hampered our ability to 
-    quickly ingest code.  The following is a list of patters for AVP header tables:
+    quickly ingest code.  The following is a list of patterns for AVP header tables:
     </t>
     <t> 
             <figure anchor="fig_1"
-                  title="Table Patters">
+                  title="Table Patterns">
             <artwork align="center"><![CDATA[
-        Pattern 1: Parses the orignal table format for AVPs defined in an  IETF spec.
+        Pattern 1: Parses the original table format for AVPs defined in an  IETF spec.
 
 		The header for an RFC is 
                       AVP  Section           |    |     |SHLD|MUST|    |
    			Attribute Name   Code Defined Data Type |MUST| MAY | NOT|NOT |Encr|
    		
-   		Pattern 2: 	Parses the orignal table format for AVPs defined in a 3GPP spec
+   		Pattern 2: 	Parses the original table format for AVPs defined in a 3GPP spec
 
 		Attribute Name | AVP Code | Section defined | Value Type | Must | May | Should not | Must not | May Encr. |
 		
-		Pattern 3: Parses the orignal table format for AVPs defined for freediameter is BUT some rows define a spec boundary 
+		Pattern 3: Parses the original table format for AVPs defined for freediameter is BUT some rows define a spec boundary 
 		such as the row below the header in this example
 		| Attribute Name                   | Code | Section | Data        | MUST | MAY | SHLD NOT | MUST NOT | Encr |
 		
-		Pattern 4: Parses the orignal table format for AVPs defined in later  IETF specs.
+		Pattern 4: Parses the original table format for AVPs defined in later  IETF specs.
 
 The header for an RFC is
   |                | AVP  | Section |            |    |MUST |
@@ -169,25 +226,25 @@ The header for an RFC is
      Accounting-      483  9.8.7   Enumerated | M  |  V  |
      Realtime-Required                      |    |     | 
      
- Pattern 5: Parses the orignal table format for AVPs defined in some  IETF specs like RFC 7155.
+ Pattern 5: Parses the original table format for AVPs defined in some  IETF specs like RFC 7155.
 
 The header for an RFC is 
   |                | Section |    |MUST |
   | Attribute Name | Defined |MUST| NOT |
   
-  Pattern 6:  Parses the orignal table format for AVPs defined in some  IETF specs that don't define applications..
+  Pattern 6:  Parses the original table format for AVPs defined in some  IETF specs that don't define applications..
 
 The header for an RFC is 
    |                                      | AVP  | Section |                |
    | Attribute Name                       | Code | Defined |    Data Type   |
    
-   Pattern 7:     Parses the orignal table format for AVPs defined in an  IETF spec.
+   Pattern 7:     Parses the original table format for AVPs defined in an  IETF spec.
     
     The header for an RFC is
                      AVP  Section           |    |MUST|
     Attribute Name   Code Defined Data Type |MUST| NOT|
     
-    Pattern 8:     Parses the orignal table format for AVPs defined in later  IETF specs.
+    Pattern 8:     Parses the original table format for AVPs defined in later  IETF specs.
     
     The header for an RFC is
     |                | AVP  | Section |            |    | MAY |MUST |
@@ -198,12 +255,12 @@ The header for an RFC is
     Realtime-Required                      |    |     |
     
     
-    Pattern 9:  Parses the orignal table format for AVPs defined in a 3GPP spec
+    Pattern 9:  Parses the original table format for AVPs defined in a 3GPP spec
     
     Attribute Name | AVP Code | Clause defined | Value Type | Must | May | Should not | Must not |
     
     
-    Pattern 10:  Parses the orignal table format for AVPs defined in a 3GPP spec
+    Pattern 10:  Parses the original table format for AVPs defined in a 3GPP spec
     
     Attribute Name | AVP Code | Value Type | Must | May | Should not | Must not |
    			
@@ -212,17 +269,17 @@ The header for an RFC is
          </figure>
    	</t>
     <t>Even with patterns present some cleanup for "Notes..." was required to get the headers parsable.</t>
-    <t>Not all specificaitons used an import table.  In fact some inter-mixed the tables used to note AVPs defined in the 
-    spec and those that were referenced.  Some columns were removed to ensure that they fit within known foramts as well. In 
+    <t>Not all specifications used an import table.  In fact some inter-mixed the tables used to note AVPs defined in the 
+    spec and those that were referenced.  Some columns were removed to ensure that they fit within known formats as well. In 
     other words, there are more formats in the specifications than shown here but with some manipulation they can be reduced to 
     this core set.</t>
-    <t>For AVP imports a 3 column and 4 column format were common. Further they often had references that needed to be removed (an 
-    ehnancement is planned to overcome this.</t>
+    <t>For AVP imports a 3-column and 4-column format were common. Further they often had references that needed to be removed (an 
+    enhancement is planned to overcome this.</t>
     <t>Multiple application specific AVP tables were in a single spec and unified.  This was for research convenience but will hamper
-    the gneration of small dictionaries.</t>
+    the generation of small dictionaries.</t>
     <t>Command codes have a long name and three letter acronym typically in a table.  However, neither of those were used in the 
     definition. For example, it is quite common to see Re-Authorization-Request and RAR but Re-Auth-Request in the command code definition.</t>
-    <t>There is no easy, programatic way to identify an application and relations to command codes or result codes.</t>
+    <t>There is no easy, programmatic way to identify an application and relations to command codes or result codes.</t>
   </section>
 </section>
 <section title="Specification Survey" anchor="avps">
@@ -247,7 +304,7 @@ The header for an RFC is
 		    <t>No import tables have been provided and had to be constructed.</t>
 		    <t>Had to change the User-Equipment-Info-Type AVP to the format of 'AVP (AVP Code XXX) is of type Enumerated' to keep the pattern to one type.</t>
 		    <t>Had to stub in TBD values.</t>
-		    <t>Mis-spelling of IPFiltrRule in table.</t>
+		    <t>Misspelling of IPFiltrRule in table.</t>
 		    <t>Many enums referenced to registry values in the spec.</t>
 		    <t>Section 8.6 removes dashes for Check Balance Result</t>
 		    <t>Redirect-Address-Type Enumerations have spacing so appear as duplicates.</t>
@@ -280,7 +337,7 @@ The header for an RFC is
     	<t>
     	<list>
     	<t>Continuations in AVP tables are inconsistent which required hand editing.  The continuation '-' sometimes appears on the first 
-    	line or not until the second which will require more complex code to deal with the situtation.</t>
+    	line or not until the second which will require more complex code to deal with the situation.</t>
     	<t>Imports of AVPs were mixed in with the table definitions specification.  This took the most time work out.</t>
     	<t>Subtype field of the MN-HA and MN-AAA authentication mobility options are not defined in spec and needed to be stitched in later</t>
     	<t>Although noted properly in text, MIP-Session-Key, MIP-Algorithm-Type, MIP-Replay-Mode was not list as being imported from an RFC in the AVP table </t>
@@ -300,7 +357,7 @@ The header for an RFC is
     	</t>
     </section>  
     <section title="RFC 7155" anchor="rfc7155err">
-    	<t>Processing took several hours. The orginal RFC was used to fill in many of the gaps in the AVP tables.</t>
+    	<t>Processing took several hours. The original RFC was used to fill in many of the gaps in the AVP tables.</t>
     	<t>
     	<list>
     	<t>AVPs only used for compatibility are in the messages but not mentioned in the document, e.g. NAS-Identifier is still present.</t>
@@ -314,7 +371,7 @@ The header for an RFC is
     	<t>
     	<list>
     	<t>The AVP table has a unique format.</t>
-    	<t>Continuations were on the second line requiring lookahead logic.</t>
+    	<t>Continuations were on the second line requiring look ahead logic.</t>
     	</list>
     	</t>
     </section>   
@@ -349,7 +406,7 @@ The header for an RFC is
     	<t>
     	<list>
     		<t>Another AVP Table format.</t>
-    		<t>The Commands were abbreviated in a manner not seen elswhere in the document, e.g. GA-Request is only used in the command defintion.</t>
+    		<t>The Commands were abbreviated in a manner not seen elsewhere in the document, e.g. GA-Request is only used in the command definition.</t>
     		<t>AVP Definitions table removes dashes of the grouped AVPs.</t>
     		<t>Duplicate AVP Names with different codes for MBMS-GW-SSM-IP-Address and MBMS-GW-SSM-Ipv6-Address.</t>
     		<t>TMGI-Number in the Grouped AVP but it is defined in the table as TMGINumber.</t>
@@ -362,10 +419,10 @@ The header for an RFC is
     	<list>
     		<t>AVP Table inter-mixes '.' and ',' separation in the flags fields. Code was finally written to overcome this.</t>
     		<t>In the AVP Table, App-Identifier was typed as 'Group' and not 'Grouped'.</t>
-    		<t>In the AVP Table, 'Assitance-info' was incorrect case for 'Info'.</t>
+    		<t>In the AVP Table, 'Assistance-info' was incorrect case for 'Info'.</t>
     		<t>Section 6.3.31, WiFi-P2P-Assistance-Iinfo has an extra 'i' in it</t>
     		<t>User-Identity's, ProSe-Response-Code's and ProSe-Query-Code's origin are unclear.  They is not in a reference section but in several groups.</t>
-    		<t>Discovery-Auth-Request and Match-Report-Info use inccorect case - ProSe-App-ID.</t>
+    		<t>Discovery-Auth-Request and Match-Report-Info use incorrect case - ProSe-App-ID.</t>
     		<t>ProSe-Query-Code and ProSe-Response-Code are noted in Grouped AVPs but do not exist elsewhere in the spec.</t>
     	</list>
     	</t>
@@ -392,7 +449,7 @@ The header for an RFC is
     	<t>
     	<list>
     		<t>Table 6.3.2.2/1: Command-Code values for SGd/Gdd has spaces in the command names.</t>
-    		<t>Send-Routing-info-for-SM-Answer in the command definition is lowercase and can't be linke to the command table.</t>
+    		<t>Send-Routing-info-for-SM-Answer in the command definition is lowercase and can't be linked to the command table.</t>
     		<t>Not an issue but an observation.  No Load Control draft reference?</t>
     		<t>SGSN-Absent-User-Diagnostic SM has a space in it in the AVP table</t>
     		<t>SM-Delivery- Failure-Cause has spacing issue in table.</t>
@@ -417,7 +474,7 @@ The header for an RFC is
     	<t>Processing took approximately a billion minutes</t>
     	<t>
     	<list>
-    	   <t>Spcing issues in AVP tables for Maximum Latency, Maximum Response Time</t>
+    	   <t>Spacing issues in AVP tables for Maximum Latency, Maximum Response Time</t>
     		<t> Scheduled-communication-time definition is lower case.</t>
     		<t>Periodic-Time is lowercase in the AVP Table.</t>
     		<t>Found a '/' in the Flags portion of the AVP Table.</t>
@@ -429,8 +486,8 @@ The header for an RFC is
     	<t>Processing took approximately a billion minutes</t>
     	<t>
     	<list>
-    	   <t>Spacing issues in AVP User-Data-Request commmand. </t>
-    	   <t>Does not specify the Supported-Features, Feature-List, Feature-List-ID, Supported-Applications, Server-Name, PUblic-Identity from another app in the AVP table.. </t>
+    	   <t>Spacing issues in AVP User-Data-Request command. </t>
+    	   <t>Does not specify the Supported-Features, Feature-List, Feature-List-ID, Supported-Applications, Server-Name, Public-Identity from another app in the AVP table.. </t>
     	</list>
     	</t>
     </section>
@@ -446,10 +503,10 @@ The header for an RFC is
     	   <t> ProSe-Direct-Communication- Transmission-Data-Container</t>
     	   <t>Related- Change-Condition- Information</t>
     	   <t>Trunk-Group-ID was Trunk-Group-Id in AVP table.</t>
-    	   <t>Wtrote more softawre to deal with the values flipped in enums (int first then label)</t>
+    	   <t>Wrote more software to deal with the values flipped in enums (int first then label)</t>
     	   <t>Enums were a large issue so hand editing had to take place to clean up the values.</t>
     	   <t>'is of type of Enumerated' and 'is of type enumerated</t>
-    	   <t>AoC-Service-Type had to be repaired by hand as the algorithm picked up the overloaed Change-Condition values</t>
+    	   <t>AoC-Service-Type had to be repaired by hand as the algorithm picked up the overloaded Change-Condition values</t>
     	   <t>MBMS-User-Service-Type</t>
     	   <t>Node-Functionality needs fixing</t>
     	   <t>Online-Charging-Flag had to be corrected</t>
@@ -480,7 +537,7 @@ The header for an RFC is
     	<t>
     	<list>
     	   <t>Variance of a later Table format.</t>
-    	   <t>Command Codes were abrreviated in such a way that they had to be changed so the software could match them up properly</t>
+    	   <t>Command Codes were abbreviated in such a way that they had to be changed so the software could match them up properly</t>
     	   <t>Time-window grouped AVP definition corrected to Time-Window</t>   	   
     	</list>
     	</t>
@@ -504,7 +561,7 @@ The header for an RFC is
     	<t>
     	<list>
     		<t>TS used in imported AVP tables.</t>
-    		<t>Command Codes were abrreviated in such a way that they had to be changed so the software could match them up properly</t> 
+    		<t>Command Codes were abbreviated in such a way that they had to be changed so the software could match them up properly</t> 
     		<t>'Feature-Supported-In-Final-Target AVP' in the AVP definitions table.</t>
     		<t>External-Id used instead of External-Identifier.</t>
     	</list>
@@ -516,7 +573,7 @@ The header for an RFC is
     	<list>
 			<t>Result Codes were not found</t>
 			<t>DRMP definitions are not handled.</t>
-			<t>Non-IP-Data had type of Octetstring</t>
+			<t>Non-IP-Data had type of OctetString</t>
     	</list>
     	</t>
     </section>
@@ -525,7 +582,7 @@ The header for an RFC is
     </section>
     <section title="3GPP TS 29.217 " anchor="ts29217err">
     	<t>Processing took approximately 43 minutes.</t>
-    	<t>The Modify-UecontentRequest / Answer command definitions did not match anything in the Comman Table.</t>
+    	<t>The Modify-Uecontext-Request / Answer command definitions did not match anything in the Command Table.</t>
 	</section>
     <section title="3GPP TS 29.273 " anchor="ts29273err">
     	<t>Processing took 60 minutes.</t>
@@ -543,7 +600,7 @@ The header for an RFC is
     	 calculations.</t>
     	<t>
     	<list>
-    		<t>Table 7.3.1/1: S6a/S6d, S7a/S7d and S13/S13' specific DiameterAVPs Alert-Reason has type of 'Enumerate'</t>
+    		<t>Table 7.3.1/1: S6a/S6d, S7a/S7d and S13/S13' specific Diameter AVPs Alert-Reason has type of 'Enumerate'</t>
 			<t>ProSe-Subscription-Data Grouped AVP has a type ID of 'xxx'</t>
 			<t>Supported-Services AVP has a type of 'zzzz'</t>
 			<t>'Subscriber Status' AVP needs a dash</t>
@@ -578,13 +635,13 @@ The header for an RFC is
     	<t>
     	<list>
     		<t>Logical-Access-ID and Physical-Access-ID have case inconsistencies with other specifications.</t>
-			<t>Acronyms in the command code lines but they do not correlate to previously described acronymns in the document.</t>
+			<t>Acronyms in the command code lines but they do not correlate to previously described acronyms in the document.</t>
 			<t>Table 5c.6.1.1 is incomplete.</t>
 			<t>Periods, '.', were used as separators in AVP tables, e.g.'M.V'.</t>
 		    <t>Sd and St use TS-Request and TS-Answer but they are don't have application assigned codes.</t>
-			<t>'Enumarated' appears in a type definition</t>
+			<t>'Enumerated' appears in a type definition</t>
 			<t>Incorrect reference of 7863 vs 7683</t>
-			<t>Manual correction was required in the document.  Somehow PCC-Rule-Status dit not got the enums it needed.  
+			<t>Manual correction was required in the document.  Somehow PCC-Rule-Status did not got the enums it needed.  
 				It appears no spacing created an error.  Hopefully software can be updated to overcome this.</t>
 			<t>Pre-emption Vulnerability (in the Section's first line) spacing kills the correct name identification.</t>
 			<t>In many Enumerations there is an extra space between 'of type' and 'Enumerated'</t>
@@ -596,7 +653,7 @@ The header for an RFC is
 			<t>CS-Service-QoS-Request-Operation 'is type of Enumerated, </t>
 			<t>CS-Service-Resource-Failure-Cause AVP (AVP code2814) has a spacing issue </t>
 			<t>'Logical-Access-ID to 'Logical-Access-Id'</t>
-			<t>CS-Service-QoS-Requset-Identifier is in table as CS-Service-Qos-Requset-Identifier</t>
+			<t>CS-Service-QoS-Request-Identifier is in table as CS-Service-Qos-Request-Identifier</t>
 			<t>Some enumerations with duplicate labels, e.g. Specific-Action</t>
     	</list>
     	</t>
@@ -610,7 +667,7 @@ The header for an RFC is
     <list>
     	<t>The name of all AVPs, Commands and Grouped AVPs appear consistently throughout the document.</t>
     	<t>The letter case MUST be consistent for all names.</t>
-    	<t>No spaces shoudl appear in the names.</t>
+    	<t>No spaces should appear in the names.</t>
     	<t>Use of underscores is discouraged except for line continuations in tables.</t>
     </list>
     </t>
@@ -671,14 +728,14 @@ The header for an RFC is
          </figure>
    	   </t>    
    	   <t>An open question exists when multiple AVPs tables are present and associated with 
-   	   a specific application within the specification. How the application can be assoicated
+   	   a specific application within the specification. How the application can be associated
    	   to the table is an open question.</t>
 	   </section>  
 	   <section title="Imported AVPs" anchor="imported_errorreductions">
 	    <t>Imported or Re-used AVPs MUST be included in the specification.  A table
 	    MUST be present if AVPs are re-used.</t>
 	    <t>The table MUST include the AVP, Source document columns.</t>
-	    <t>The table MAY include a Commennt column.</t>
+	    <t>The table MAY include a Comment column.</t>
 	    <t>An M-bit column MAY be present as required.</t>
 	    <t>The table MUST be pipe delimited.</t>
 	   </section>  
@@ -686,7 +743,7 @@ The header for an RFC is
 	    <t>When a Grouped AVP is refined a Refine keyword is appended to the end
 	    of the header.  It MUST include an application identifier of the Grouped AVP 
 		it refines if that application was not the original specification or 'version'
-		of the Gropued AVP.   When the Grouped AVP refines the original definition of the
+		of the Grouped AVP.   When the Grouped AVP refines the original definition of the
 		Gropued AVP it SHOULD include its application identifier.</t>
 	    <t>The refined Grouped AVP MUST be included in the AVP Import table.</t>
 	    <t>Open question, should the vendor and application identifiers of the application 
@@ -698,10 +755,11 @@ The header for an RFC is
 	    	<t>Any refinement of an AVP present in the refined Group MUST adhere to the 
 	    	restrictions, if any, that were defined by inherited Groups.  For example,
 	    	if a Grouped AVP refines an attribute 'Foo' to the range X*Y and 'Foo'x is 
-	    	defined in the orignal AVP with a range of A*B then X &gt;= A and Y &lt;= B.</t>
-	    	<t>AVPs retained without further restriction of the number of occurences MUST
+	    	defined in the original AVP with a range of A*B then X &gt;= A and Y &lt;= B.</t>
+	    	<t>AVPs retained without further restriction of the number of occurrences MUST
 	    	be kept in the Refining AVP's definition otherwise they are assumed to be
-	    	dropped from the new AVP definition.  Otherwise, it is impossible to determine
+	    	dropped from 
+the new AVP definition.  Otherwise, it is impossible to determine
 	    	the Author's intent.</t>
 	    </list>
 	    </t>
@@ -732,7 +790,7 @@ User-Identifier ::= <AVP-Header: 3102, 10415, Refines>
 	   <section title="Command Errors" anchor="commanmd_errorreductions">
 	    <t>The largest issue with Commands is the inconsistent values between the 
 	    name, three letter acronym defined in the table and the actual name used 
-	    in the command defintition.  Maintaining consistency will resolve this issue.</t>
+	    in the command definition.  Maintaining consistency will resolve this issue.</t>
 	    <t>Like Grouped AVP refinement, a Refine keyword is appended to the end
 	    of the header.  It MUST include an application identifier of the Command 
 		it refines if that application was not the original specification or 'version'
@@ -744,8 +802,8 @@ User-Identifier ::= <AVP-Header: 3102, 10415, Refines>
 	    	<t>Any refinement of an AVP present in the refined Command MUST adhere to the 
 	    	restrictions, if any, that were defined by inherited Commands.  For example,
 	    	if a Command refines an attribute 'Foo' to the range X*Y and 'Foo' is 
-	    	defined in the orignal Command with a range of A*B then X &gt;= A and Y &lt;= B.</t>
-	    	<t>Commands retained without further restriction of the number of occurences MUST
+	    	defined in the original Command with a range of A*B then X &gt;= A and Y &lt;= B.</t>
+	    	<t>Commands retained without further restriction of the number of occurrences MUST
 	    	be kept in the Refining Command's definition otherwise they are assumed to be
 	    	dropped from the new Commands definition.  Otherwise, it is impossible to determine
 	    	the Author's intent.</t>
@@ -754,7 +812,7 @@ User-Identifier ::= <AVP-Header: 3102, 10415, Refines>
 	   <section title="Enumeration Errors" anchor="enum_errorreductions">
 	    <t>Enumeration Value Names MUST adhere to alphanumeric and underscore characters.</t>
 	    <t>Enumeration Value Names MUST not begin with an underscore.</t>
-	    <t>When being definned the format must include the label and the value assigned
+	    <t>When being defined the format must include the label and the value assigned
 	    with the label enclosed in parenthesis on a single.  This will confusion where
 	    the label values end in integers and are close to the numeric value.  For example,
 	    'speed_10 10' is okay, 'speed_1010' is a error.  This can be avoided by requiring
@@ -795,7 +853,7 @@ User-Identifier ::= <AVP-Header: 3102, 10415, Refines>
  	 <t>GAP 1 is closed in line 1.  GAP 3 is closed in lines 1 through 3 while GAP 4
  	 is closed by lines 5 through 7.</t>
  	 <t>GAP 2 can be closed by using a common discernable Table Name format, e.g. AppFoo defined
- 	 AVPs.  In this case the Application Name can be looked up and associated to teh defined AVP table.</t>
+ 	 AVPs.  In this case the Application Name can be looked up and associated to the defined AVP table.</t>
    	 <t>Gap 5 can be partially closed by following a pattern similar to Result-Codes but this does not resolve all
    	 uses cases.</t>
   	    <t>
@@ -828,7 +886,20 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      &RFC6733;
    </references>
    <references title="Informative References">
+     &RFC4004;
+     &RFC4950;
+     &RFC5447;
+     &RFC5777;
+     &RFC5778;
+     &RFC7155;
      &RFC7222;
+     &RFC7423;
+     &RFC7683;
+     &RFC7944;
+     &RFC4006BIS;
+     &IDLOAD;
+     
    </references>
  </back>
 </rfc>
+
