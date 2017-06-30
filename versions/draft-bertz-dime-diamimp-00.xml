@@ -16,6 +16,13 @@
 
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc toc="yes" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="no" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
 
 <rfc category="std" docName="draft-bertz-dime-diamimpr-01" ipr="pre5378Trust200902">
  <front>
