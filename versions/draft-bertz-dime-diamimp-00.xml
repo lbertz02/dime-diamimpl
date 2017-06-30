@@ -12,8 +12,8 @@
 <!ENTITY RFC7423 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7423.xml">
 <!ENTITY RFC7683 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7683.xml">
 <!ENTITY RFC7944 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7944.xml">
-<!ENTITY RFC4006BIS SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.bertz-dime-rfc4006bis.xml">
-<!ENTITY IDLOAD SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-dime-load-09.xml">
+<!ENTITY I-D.bertz-dime-rfc4006bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.bertz-dime-rfc4006bis.xml">
+<!ENTITY I-D.ietf-dime-load SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-dime-load-09.xml">
 
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -94,17 +94,17 @@ programmatic verification of Diameter specifications can be done with minimal to
 
 <t>The tool was ran against the following standards specifications for diameter applications:
 <list>
-<t><xref target="RFC4004"/></t>
-<t>RFC 4006 bis <xref target="RFC4006BIS"/></t>
-<t><xref target="RFC4950"/></t>
-<t><xref target="RFC5447"/></t>
-<t><xref target="RFC5777"/></t>
-<t><xref target="RFC5778"/></t>
-<t>Diameter Load (draft) <xref target="IDLOAD"/></t>
-<t><xref target="RFC6733"/></t>
-<t><xref target="RFC7155"/></t>
-<t><xref target="RFC7683"/></t>
-<t><xref target="RFC7944"/></t>
+<t>RFC 4004 <xref target="RFC4004"/></t>
+<t>RFC 4006 bis <xref target="I-D.bertz-dime-rfc4006bis"/></t>
+<t>RFC 4950 <xref target="RFC4950"/></t>
+<t>RFC 5447 <xref target="RFC5447"/></t>
+<t>RFC 5777 <xref target="RFC5777"/></t>
+<t>RFC 5778 <xref target="RFC5778"/></t>
+<t>Diameter Load (draft) <xref target="I-D.ietf-dime-load"/></t>
+<t>RFC 6733 <xref target="RFC6733"/></t>
+<t>RFC 7155 <xref target="RFC7155"/></t>
+<t>RFC 7683 <xref target="RFC7683"/></t>
+<t>RFC 7944 <xref target="RFC7944"/></t>
 <t>3GPP TS 29.213</t>
 <t>3GPP TS 29.345</t>
 <t>3GPP TS 29.344</t>
@@ -124,10 +124,10 @@ programmatic verification of Diameter specifications can be done with minimal to
 <t>3GPP TS 29.272</t>
 <t>3GPP TS 29.061</t>
 <t>3GPP TS 29.212</t>
+<t>3GPP TS 32.299 <xref target="TGPP32399"/></t>
 
 </list>
 </t>
-
   <section title="Summary of Challenges and Errors" anchor="commonerrors">
     <t>Enumeration issues have their own section below.  General issues include but are not limited to:
     	<list>
@@ -896,9 +896,118 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      &RFC7423;
      &RFC7683;
      &RFC7944;
-     &RFC4006BIS;
-     &IDLOAD;
+     &I-D.bertz-dime-rfc4006bis;
+     &I-D.ietf-dime-load;
      
+<t>3GPP TS 29.213</t>
+<t>3GPP TS 29.345</t>
+<t>3GPP TS 29.344</t>
+<t>3GPP TS 29.343</t>
+<t>3GPP TS 29.338</t>
+<t>3GPP TS 29.337</t>
+<t>3GPP TS 29.336</t>
+<t>3GPP TS 29.329</t>
+<t>3GPP TS 32.299</t>
+<t>3GPP TS 29.154</t>
+
+     <reference anchor="3GPP.29.154"">
+     <front>
+     	<title>Service capability exposure functionality over Nt reference point</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.154 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29154.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.215"">
+     <front>
+     	<title>Policy and Charging Control (PCC) over S9 reference point; Stage 3</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.215 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29215.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.368"">
+     <front>
+     	<title>Tsp interface protocol between the MTC Interworking Function (MTC-IWF) and Service Capability Server (SCS)</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.368 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29368.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.128"">
+     <front>
+     	<title>Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) interfaces for interworking with packet data networks and applications</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="16" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.128 14.2.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29128.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.173"">
+     <front>
+     	<title>Location Services (LCS); Diameter-based SLh interface for Control Plane LCS</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="16" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.173 14.0.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29173.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.217"">
+     <front>
+     	<title>Policy and Charging Control (PCC); Congestion reporting over Np reference point</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.217 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29217.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.273"">
+     <front>
+     	<title>Evolved Packet System (EPS); 3GPP EPS AAA interfaces</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="15" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.273 14.2.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29273.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.272"">
+     <front>
+     	<title>Evolved Packet System (EPS); Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) related interfaces based on Diameter protocol</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="15" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.272 14.3.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29272.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.061">
+     <front>
+     	<title>Policy and Charging Control (PCC); Reference points</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.061 14.3.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29061.htm"/>
+     </reference>
+
+     <reference anchor="3GPP.29.212">
+     <front>
+     	<title>Policy and Charging Control (PCC); Reference points</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.212 14.3.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29212.htm"/>
+     </reference>
+     
+     <reference anchor="3GPP.32.299">
+     <front>
+     	<title>Telecommunication management; Charging management; Diameter charging applications</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="32.299 14.3.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/32299.htm"/>
+     </reference>
    </references>
  </back>
 </rfc>
