@@ -8,7 +8,6 @@
 <!ENTITY RFC5778 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5778.xml">
 <!ENTITY RFC6733 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6733.xml">
 <!ENTITY RFC7155 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7155.xml">
-<!ENTITY RFC7222 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7222.xml">
 <!ENTITY RFC7423 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7423.xml">
 <!ENTITY RFC7683 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7683.xml">
 <!ENTITY RFC7944 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7944.xml">
@@ -20,7 +19,7 @@
 
 <rfc category="std" docName="draft-bertz-dime-diamimpr-01" ipr="pre5378Trust200902">
  <front>
-   <title>Recommendations for the Improvement of Diameter Specifications</title>
+   <title>Diameter Specification Recommendations</title>
 
    <author fullname="Lyle Bertz" initials="L." surname="Bertz">
      <organization>Sprint</organization>
@@ -105,26 +104,26 @@ programmatic verification of Diameter specifications can be done with minimal to
 <t>RFC 7155 <xref target="RFC7155"/></t>
 <t>RFC 7683 <xref target="RFC7683"/></t>
 <t>RFC 7944 <xref target="RFC7944"/></t>
-<t>3GPP TS 29.213</t>
-<t>3GPP TS 29.345</t>
-<t>3GPP TS 29.344</t>
-<t>3GPP TS 29.343</t>
-<t>3GPP TS 29.338</t>
-<t>3GPP TS 29.337</t>
-<t>3GPP TS 29.336</t>
-<t>3GPP TS 29.329</t>
-<t>3GPP TS 32.299</t>
-<t>3GPP TS 29.154</t>
-<t>3GPP TS 29.215</t>
-<t>3GPP TS 29.368</t>
-<t>3GPP TS 29.128</t>
-<t>3GPP TS 29.173</t>
-<t>3GPP TS 29.217</t>
-<t>3GPP TS 29.273</t>
-<t>3GPP TS 29.272</t>
-<t>3GPP TS 29.061</t>
-<t>3GPP TS 29.212</t>
-<t>3GPP TS 32.299 <xref target="TGPP32399"/></t>
+<t>3GPP TS 29.214 <xref target="TGPP.29.214"/></t>
+<t>3GPP TS 29.345 <xref target="TGPP.29.345"/></t>
+<t>3GPP TS 29.344 <xref target="TGPP.29.344"/></t>
+<t>3GPP TS 29.343 <xref target="TGPP.29.343"/></t>
+<t>3GPP TS 29.338 <xref target="TGPP.29.338"/></t>
+<t>3GPP TS 29.337 <xref target="TGPP.29.337"/></t>
+<t>3GPP TS 29.336 <xref target="TGPP.29.336"/></t>
+<t>3GPP TS 29.329 <xref target="TGPP.29.329"/></t>
+<t>3GPP TS 32.299 <xref target="TGPP.32.299"/></t>
+<t>3GPP TS 29.154 <xref target="TGPP.29.154"/></t>
+<t>3GPP TS 29.215 <xref target="TGPP.29.215"/></t>
+<t>3GPP TS 29.368 <xref target="TGPP.29.368"/></t>
+<t>3GPP TS 29.128 <xref target="TGPP.29.128"/></t>
+<t>3GPP TS 29.173 <xref target="TGPP.29.173"/></t>
+<t>3GPP TS 29.217 <xref target="TGPP.29.217"/></t>
+<t>3GPP TS 29.273 <xref target="TGPP.29.273"/></t>
+<t>3GPP TS 29.272 <xref target="TGPP.29.272"/></t>
+<t>3GPP TS 29.061 <xref target="TGPP.29.061"/></t>
+<t>3GPP TS 29.212 <xref target="TGPP.29.212"/></t>
+<t>3GPP TS 32.299 <xref target="TGPP.32.299"/></t>
 
 </list>
 </t>
@@ -133,52 +132,53 @@ programmatic verification of Diameter specifications can be done with minimal to
     	<list>
     	<t>Spelling and spacing errors.</t>
     	<t>Inconsistent Table formats over time.  Arguably this reflects the changes in Diameter but
-    	these inconsistencies occur with documents release in close time frames.  There are also too 
+    	these inconsistencies occur with documents released in close time frames.  There are also too 
     	many formats to claim it is a 'change over time' and not just an inconsistency issue.</t>
-    	<t>Missing AVPs and AVP Code values.</t>
+    	<t>Missing AVPs and/or AVP Code values.</t>
     	<t>Case Sensitive inconsistencies.</t>
-    	<t>The wrong name for AVPs in Tables, referenced across specs, etc. but have the same AVP Code.</t>
+    	<t>The wrong name for AVPs in Tables, referenced across specs, etc. that have the same AVP Code.</t>
     	<t>Claiming an AVP is defined in a spec when in fact it is referenced.</t>
     	<t>Incorrect references.</t>
-    	<t>Not noting an AVP is referenced at all but including it in a Group or Message.</t>
-    	<t>Some AVPs mentioned in Groups and not defined anywhere.  This happened a few times in Accounting 
+    	<t>Not noting an AVP is referenced at all but including it in a Grouped AVP or Command.</t>
+    	<t>Some AVPs mentioned in Grouped AVPs and not defined anywhere.  This happened a few times in accounting 
     	related 3GPP specifications.</t>
     	</list>
     </t>
-    <t>Enumerations do not have a specific CCF. Over the wire the labels themselves are not used as the value
-    is transported in integer formats. When received by a Client or Server the value is checked against a list of
-    valid values.   The label would only appear in displayed information for errors, logging, etc.  However, 
-    many of the specifications used varying case, spaces, parenthesis around numbers, tables, numbers then labels,
-    labels then numbers, etc.</t>
+    <t>Enumerations do not have a specific format in the base specificaton <xref target="RFC6733"/>. Over the wire the 
+    labels themselves are not used as the value is transported in integer formats. When received by a Client or Server 
+    the value is checked against a list of valid values.   The label only appears in displayed information for errors, 
+    logging, etc.  However, many of the specifications used varying case, spaces and formats such as parenthesis around 
+    numbers, tables, numbers then labels, labels then numbers, etc.</t>
     <t>An algorithm keying off of the expression 'is of type Enumerated' was used to figure out the text between 
-    enumerations.  A function was then used to attempt to parse various patterns, generate a label that may be acceptable
-    to a coding language capture the value assigned to the label.  This yielded partial success.  In some cases, especially
+    enumerations.  A function was then used to attempt to parse various label patterns, generate a label that may be acceptable
+    to a coding language and capture the value assigned to the label.  This yielded partial success.  In some cases, especially
     billing in 3GPP, hand edits were required to fix duplicate labels and formats that were inconsistent with the rest of the 
     document's enumerations.</t>
-    <t>A few cases even referenced their values as coming from other enums or registries associated with the IETF or OMA.  These
-    were removed in some cases due to their size or copied from the existing enumeration if it had already been generated.</t>
+    <t>A few cases even referenced their values as coming from other enums or registries associated with the IETF or other standards
+    organizations.  These were removed in some cases due to their size while others were copied from the existing enumeration file in 
+    the diafuzzer project if it had already been generated.</t>
     <t>Although enumerations are now available in the intermediate '.dia' format, many of the labels will not be valid in specific
     programming languages.  More work is required regarding enumerations to accommodate these situations.</t>
   </section>
   <section title="Summary of Indirect Use Cases" anchor="indirectusecases">
-    <t>Several Use Cases appeared that where the .dia format was extended to capture them.</t>
+    <t>Several Use Cases appeared that where the dia format was extended to capture them.</t>
     	<section title="Refinements" anchor="refinements">
-    	<t>Refinement (Extension) of Commands and Groups.  This is a case where the same AVP/Command is referenced, i.e. same code or
+    	<t>Refinement (Extension) of Commands and Grouped AVPs.  This is a case where the same AVP/Command is referenced, i.e. same code or
     	vendor/code combination but the underlying members of the structure are different.  Two variants of this were found:
     		<list><t>The base (original definition) of the structure was refined.  In this case, the 'Refines' Statement in the header
     			may not include the application.</t>
     			<t>A refinement of a refinement.   In this case the specific refinement (AVP + App ID it was specified in) was the 
-    			refinement.</t>
+    			part of the refinement clause.</t>
     		</list>
     	</t>
-    	<t>This is not inheritance.  In inheritance the children also inherit the attributes (AVPs) of the parent. In many cases
+    	<t>Note: this is not inheritance.  In inheritance the children also inherit the attributes (AVPs) of the parent. In many cases
     	the new definition removed some of the parents AVPs or further limited the occurrence amount of the AVPs.</t>
     	<t>Refinements can only occur if the Command/Grouped AVP is extensible, i.e. it includes *[AVP] in its definition.</t>
-    	<t>   A value of 2[AVP] would not be considered extensible and its behavior is undefined.  Can someone limit the number of AVPs
-    	present in a Command/Grouped AVP when that value is less than the total sum of the upper bounds of all member AVPs.  For example,
-    	if a  Grouped AVP permits at most 2 occurrences of AVP member "X" and 2 of AVP member "Y", how/why could/would one limit the 
-    	Grouped AVP to no more than 3 AVPs? </t>
-    	<t>In the .dia format Refinement is captured by adding 'Refines [application id]' at the end of the header/Grouped AVP definition.</t>
+    	<t>The rationale for this can be shown by example. A value of 2[AVP] would not be considered extensible and its behavior is undefined.  
+    	Can someone limit the number of AVPs present in a Command/Grouped AVP when that value is less than the total sum of the upper bounds of 
+    	all member AVPs.  For example, if a  Grouped AVP permits at most 2 occurrences of AVP member "X" and 2 of AVP member "Y", how/why could/would 
+    	one limit the Grouped AVP to no more than 3 AVPs? </t>
+    	<t>In the dia format Refinement is captured by adding 'Refines [application id]' at the end of the header/Grouped AVP definition.</t>
     	</section>
     	<section title="Enumerations" anchor="enumissues">
     	<t>Enumeration use cases included definitions that referenced
@@ -191,91 +191,102 @@ programmatic verification of Diameter specifications can be done with minimal to
     	<t>In a few cases Enumerations referenced other enumerations and then, in Notes, limited the values (was a proper subset). The opposite 
     	case (a proper superset) never presented itself.</t>
     	<t>Later specifications assigned Unsigned32 as a value in what appears to be an attempt to avoid registries or provide some pseudo 
-    	extensibility.  The purpose is actually unclear.</t>
+    	extensibility.  The exact purpose is actually unclear.</t>
     	</section>
   </section>
   <section title="Summary of Ingestion Barriers" anchor="codegenbarriers">
     <t>Errors, inconsistencies and Use Cases that could not be easily fulfilled aside.  Format differences hampered our ability to 
-    quickly ingest code.  The following is a list of patterns for AVP header tables:
+    quickly ingest Diameter strcutures from specifications.  The following is a list of patterns for just AVP header tables:
     </t>
     <t> 
             <figure anchor="fig_1"
                   title="Table Patterns">
             <artwork align="center"><![CDATA[
-        Pattern 1: Parses the original table format for AVPs defined in an  IETF spec.
+Pattern 1: Parses the original table format for AVPs defined in an  
+ IETF spec.
 
-		The header for an RFC is 
-                      AVP  Section           |    |     |SHLD|MUST|    |
-   			Attribute Name   Code Defined Data Type |MUST| MAY | NOT|NOT |Encr|
+The header for an RFC is 
+                 AVP  Section           |    |     |SHLD|MUST|    |
+Attribute Name   Code Defined Data Type |MUST| MAY | NOT|NOT |Encr|
    		
-   		Pattern 2: 	Parses the original table format for AVPs defined in a 3GPP spec
+Pattern 2: 	Parses the original table format for AVPs defined in a 
+ 3GPP spec
 
-		Attribute Name | AVP Code | Section defined | Value Type | Must | May | Should not | Must not | May Encr. |
+Attribute Name|AVP Code|Section defined|Value Type|Must|May|Should - 
+	not| Must not | May Encr. |
 		
-		Pattern 3: Parses the original table format for AVPs defined for freediameter is BUT some rows define a spec boundary 
-		such as the row below the header in this example
-		| Attribute Name                   | Code | Section | Data        | MUST | MAY | SHLD NOT | MUST NOT | Encr |
+Pattern 3: Parses the original table format for AVPs defined for 
+ freediameter is BUT some rows define a spec boundary 
+ such as the row below the header in this example
+ 
+|Attribute Name|Code|Section|Data|MUST|MAY|SHLD NOT|MUST NOT|Encr|
 		
-		Pattern 4: Parses the original table format for AVPs defined in later  IETF specs.
+Pattern 4: Parses the original table format for AVPs defined in later
+ IETF specs.
 
 The header for an RFC is
   |                | AVP  | Section |            |    |MUST |
   | Attribute Name | Code | Defined | Data Type  |MUST| NOT |
 
-  An AVP can be 2-line
+ An AVP can be 2-line
      Accounting-      483  9.8.7   Enumerated | M  |  V  |
-     Realtime-Required                      |    |     | 
+       Realtime-Required                      |    |     | 
      
- Pattern 5: Parses the original table format for AVPs defined in some  IETF specs like RFC 7155.
+Pattern 5: Parses the original table format for AVPs defined in some 
+ IETF specs like RFC 7155.
 
 The header for an RFC is 
   |                | Section |    |MUST |
   | Attribute Name | Defined |MUST| NOT |
   
-  Pattern 6:  Parses the original table format for AVPs defined in some  IETF specs that don't define applications..
+Pattern 6:  Parses the original table format for AVPs defined in some 
+ IETF specs that don't define applications..
 
 The header for an RFC is 
-   |                                      | AVP  | Section |                |
-   | Attribute Name                       | Code | Defined |    Data Type   |
+   |                           | AVP  | Section |                |
+   | Attribute Name            | Code | Defined |    Data Type   |
    
-   Pattern 7:     Parses the original table format for AVPs defined in an  IETF spec.
+Pattern 7:     Parses the original table format for AVPs defined in an 
+ IETF spec.
     
-    The header for an RFC is
-                     AVP  Section           |    |MUST|
-    Attribute Name   Code Defined Data Type |MUST| NOT|
+The header for an RFC is
+                 AVP  Section           |    |MUST|
+Attribute Name   Code Defined Data Type |MUST| NOT|
     
-    Pattern 8:     Parses the original table format for AVPs defined in later  IETF specs.
+Pattern 8:     Parses the original table format for AVPs defined in 
+ later IETF specs.
     
-    The header for an RFC is
-    |                | AVP  | Section |            |    | MAY |MUST |
-    | Attribute Name | Code | Defined | Data Type  |MUST|     | NOT |
+The header for an RFC is
+|                | AVP  | Section |            |    | MAY |MUST |
+| Attribute Name | Code | Defined | Data Type  |MUST|     | NOT |
     
-    An AVP can be 2-line
-    Accounting-      483  9.8.7   Enumerated | M  |  V  |
-    Realtime-Required                      |    |     |
+An AVP can be 2-line
+Accounting-      483  9.8.7   Enumerated | M  |  V  |
+Realtime-Required                      |    |     |
+        
+Pattern 9:  Parses the original table format for AVPs defined in a 
+3GPP spec    
+Attribute Name|AVP Code|Clause defined|Value Type|Must|May|Should -
+ not|Must not|
     
     
-    Pattern 9:  Parses the original table format for AVPs defined in a 3GPP spec
+Pattern 10:  Parses the original table format for AVPs defined in a 
+ 3GPP spec
     
-    Attribute Name | AVP Code | Clause defined | Value Type | Must | May | Should not | Must not |
-    
-    
-    Pattern 10:  Parses the original table format for AVPs defined in a 3GPP spec
-    
-    Attribute Name | AVP Code | Value Type | Must | May | Should not | Must not |
+Attribute Name|AVP Code|Value Type|Must|May|Should not|Must not|
    			
    			]]></artwork>
             <postamble></postamble>
          </figure>
    	</t>
-    <t>Even with patterns present some cleanup for "Notes..." was required to get the headers parsable.</t>
+    <t>Even with the patterns present some cleanup for "Notes..." was required to get the headers parsable.</t>
     <t>Not all specifications used an import table.  In fact some inter-mixed the tables used to note AVPs defined in the 
     spec and those that were referenced.  Some columns were removed to ensure that they fit within known formats as well. In 
     other words, there are more formats in the specifications than shown here but with some manipulation they can be reduced to 
     this core set.</t>
     <t>For AVP imports a 3-column and 4-column format were common. Further they often had references that needed to be removed (an 
-    enhancement is planned to overcome this.</t>
-    <t>Multiple application specific AVP tables were in a single spec and unified.  This was for research convenience but will hamper
+    enhancement is planned to overcome this in the test code.</t>
+    <t>Multiple application specific AVP tables that occurred in a single spec and unified.  This was for research convenience but will hamper
     the generation of small dictionaries.</t>
     <t>Command codes have a long name and three letter acronym typically in a table.  However, neither of those were used in the 
     definition. For example, it is quite common to see Re-Authorization-Request and RAR but Re-Auth-Request in the command code definition.</t>
@@ -892,25 +903,85 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      &RFC5777;
      &RFC5778;
      &RFC7155;
-     &RFC7222;
      &RFC7423;
      &RFC7683;
      &RFC7944;
      &I-D.bertz-dime-rfc4006bis;
      &I-D.ietf-dime-load;
      
-<t>3GPP TS 29.213</t>
-<t>3GPP TS 29.345</t>
-<t>3GPP TS 29.344</t>
-<t>3GPP TS 29.343</t>
-<t>3GPP TS 29.338</t>
-<t>3GPP TS 29.337</t>
-<t>3GPP TS 29.336</t>
-<t>3GPP TS 29.329</t>
-<t>3GPP TS 32.299</t>
-<t>3GPP TS 29.154</t>
+	<reference anchor="TGPP.29.214">
+     <front>
+     	<title>Policy and charging control over Rx reference point</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.214 14.3.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29214.htm"/>
+     </reference>
 
-     <reference anchor="3GPP.29.154"">
+	<reference anchor="TGPP.29.345">
+     <front>
+     	<title>Inter-Proximity-services (Prose) function signalling aspects; Stage 3</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="16" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.345 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29345.htm"/>
+     </reference>
+
+	<reference anchor="TGPP.29.344">
+     <front>
+     	<title>Proximity-services (ProSe) function to Home Subscriber Server (HSS) aspects; Stage 3</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="16" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.344 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29344.htm"/>
+     </reference>
+
+	<reference anchor="TGPP.29.343">
+     <front>
+     	<title>Proximity-services (ProSe) function to ProSe application server aspects (PC2); Stage 3</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="17" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.343 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29343.htm"/>
+     </reference>
+
+	<reference anchor="TGPP.29.338">
+     <front>
+     	<title>Diameter based protocols to support Short Message Service (SMS) capable Mobile Management Entities (MMEs)</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="16" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.338 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29338.htm"/>
+     </reference>
+
+	<reference anchor="TGPP.29.337">
+     <front>
+     	<title>Diameter-based T4 Interface for communications with packet data networks and applications</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="16" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.337 14.0.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29337.htm"/>
+     </reference>
+
+	<reference anchor="TGPP.29.336">
+     <front>
+     	<title>Home Subscriber Server (HSS) diameter interfaces for interworking with packet data networks and applications</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="15" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.336 14.1.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29336.htm"/>
+     </reference>
+
+     <reference anchor="TGPP.29.329">
+     <front>
+     	<title>Sh interface based on the Diameter protocol; Protocol details</title>
+     	<author><organization>3GPP</organization></author>
+     	<date day="16" month="March" year="2017"/></front> 
+     	<seriesInfo name="3GPP TS" value="29.329 14.2.0"/>
+     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29329.htm"/>
+     </reference>
+
+     <reference anchor="TGPP.29.154">
      <front>
      	<title>Service capability exposure functionality over Nt reference point</title>
      	<author><organization>3GPP</organization></author>
@@ -919,7 +990,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29154.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.215"">
+     <reference anchor="TGPP.29.215">
      <front>
      	<title>Policy and Charging Control (PCC) over S9 reference point; Stage 3</title>
      	<author><organization>3GPP</organization></author>
@@ -928,7 +999,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29215.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.368"">
+     <reference anchor="TGPP.29.368">
      <front>
      	<title>Tsp interface protocol between the MTC Interworking Function (MTC-IWF) and Service Capability Server (SCS)</title>
      	<author><organization>3GPP</organization></author>
@@ -937,7 +1008,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29368.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.128"">
+     <reference anchor="TGPP.29.128">
      <front>
      	<title>Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) interfaces for interworking with packet data networks and applications</title>
      	<author><organization>3GPP</organization></author>
@@ -946,7 +1017,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29128.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.173"">
+     <reference anchor="TGPP.29.173">
      <front>
      	<title>Location Services (LCS); Diameter-based SLh interface for Control Plane LCS</title>
      	<author><organization>3GPP</organization></author>
@@ -955,7 +1026,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29173.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.217"">
+     <reference anchor="TGPP.29.217">
      <front>
      	<title>Policy and Charging Control (PCC); Congestion reporting over Np reference point</title>
      	<author><organization>3GPP</organization></author>
@@ -964,7 +1035,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29217.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.273"">
+     <reference anchor="TGPP.29.273">
      <front>
      	<title>Evolved Packet System (EPS); 3GPP EPS AAA interfaces</title>
      	<author><organization>3GPP</organization></author>
@@ -973,7 +1044,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29273.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.272"">
+     <reference anchor="TGPP.29.272">
      <front>
      	<title>Evolved Packet System (EPS); Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) related interfaces based on Diameter protocol</title>
      	<author><organization>3GPP</organization></author>
@@ -982,7 +1053,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29272.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.061">
+     <reference anchor="TGPP.29.061">
      <front>
      	<title>Policy and Charging Control (PCC); Reference points</title>
      	<author><organization>3GPP</organization></author>
@@ -991,7 +1062,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29061.htm"/>
      </reference>
 
-     <reference anchor="3GPP.29.212">
+     <reference anchor="TGPP.29.212">
      <front>
      	<title>Policy and Charging Control (PCC); Reference points</title>
      	<author><organization>3GPP</organization></author>
@@ -1000,7 +1071,7 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      	<format type="HTML" target="http://www.3gpp.org/DynaReport/29212.htm"/>
      </reference>
      
-     <reference anchor="3GPP.32.299">
+     <reference anchor="TGPP.32.299">
      <front>
      	<title>Telecommunication management; Charging management; Diameter charging applications</title>
      	<author><organization>3GPP</organization></author>
