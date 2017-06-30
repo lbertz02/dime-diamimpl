@@ -124,25 +124,27 @@ programmatic verification of Diameter specifications can be done with minimal to
 <t>3GPP TS 29.061 <xref target="TGPP.29.061"/></t>
 <t>3GPP TS 29.212 <xref target="TGPP.29.212"/></t>
 <t>3GPP TS 32.299 <xref target="TGPP.32.299"/></t>
+<t>3GPP TS 29.229 <xref target="TGPP.29.229"/></t>
+<t>3GPP TS 29.468 <xref target="TGPP.29.468"/></t>
 
 </list>
 </t>
   <section title="Summary of Challenges and Errors" anchor="commonerrors">
     <t>Enumeration issues have their own section below.  General issues include but are not limited to:
-    	<list>
-    	<t>Spelling and spacing errors.</t>
-    	<t>Inconsistent Table formats over time.  Arguably this reflects the changes in Diameter but
-    	these inconsistencies occur with documents released in close time frames.  There are also too 
-    	many formats to claim it is a 'change over time' and not just an inconsistency issue.</t>
-    	<t>Missing AVPs and/or AVP Code values.</t>
-    	<t>Case Sensitive inconsistencies.</t>
-    	<t>The wrong name for AVPs in Tables, referenced across specs, etc. that have the same AVP Code.</t>
-    	<t>Claiming an AVP is defined in a spec when in fact it is referenced.</t>
-    	<t>Incorrect references.</t>
-    	<t>Not noting an AVP is referenced at all but including it in a Grouped AVP or Command.</t>
-    	<t>Some AVPs mentioned in Grouped AVPs and not defined anywhere.  This happened a few times in accounting 
-    	related 3GPP specifications.</t>
-    	</list>
+     <list>
+     <t>Spelling and spacing errors.</t>
+     <t>Inconsistent Table formats over time.  Arguably this reflects the changes in Diameter but
+     these inconsistencies occur with documents released in close time frames.  There are also too 
+     many formats to claim it is a 'change over time' and not just an inconsistency issue.</t>
+     <t>Missing AVPs and/or AVP Code values.</t>
+     <t>Case Sensitive inconsistencies.</t>
+     <t>The wrong name for AVPs in Tables, referenced across specs, etc. that have the same AVP Code.</t>
+     <t>Claiming an AVP is defined in a spec when in fact it is referenced.</t>
+     <t>Incorrect references.</t>
+     <t>Not noting an AVP is referenced at all but including it in a Grouped AVP or Command.</t>
+     <t>Some AVPs mentioned in Grouped AVPs and not defined anywhere.  This happened a few times in accounting 
+     related 3GPP specifications.</t>
+     </list>
     </t>
     <t>Enumerations do not have a specific format in the base specificaton <xref target="RFC6733"/>. Over the wire the 
     labels themselves are not used as the value is transported in integer formats. When received by a Client or Server 
@@ -162,67 +164,66 @@ programmatic verification of Diameter specifications can be done with minimal to
   </section>
   <section title="Summary of Indirect Use Cases" anchor="indirectusecases">
     <t>Several Use Cases appeared that where the dia format was extended to capture them.</t>
-    	<section title="Refinements" anchor="refinements">
-    	<t>Refinement (Extension) of Commands and Grouped AVPs.  This is a case where the same AVP/Command is referenced, i.e. same code or
-    	vendor/code combination but the underlying members of the structure are different.  Two variants of this were found:
-    		<list><t>The base (original definition) of the structure was refined.  In this case, the 'Refines' Statement in the header
-    			may not include the application.</t>
-    			<t>A refinement of a refinement.   In this case the specific refinement (AVP + App ID it was specified in) was the 
-    			part of the refinement clause.</t>
-    		</list>
-    	</t>
-    	<t>Note: this is not inheritance.  In inheritance the children also inherit the attributes (AVPs) of the parent. In many cases
-    	the new definition removed some of the parents AVPs or further limited the occurrence amount of the AVPs.</t>
-    	<t>Refinements can only occur if the Command/Grouped AVP is extensible, i.e. it includes *[AVP] in its definition.</t>
-    	<t>The rationale for this can be shown by example. A value of 2[AVP] would not be considered extensible and its behavior is undefined.  
-    	Can someone limit the number of AVPs present in a Command/Grouped AVP when that value is less than the total sum of the upper bounds of 
-    	all member AVPs.  For example, if a  Grouped AVP permits at most 2 occurrences of AVP member "X" and 2 of AVP member "Y", how/why could/would 
-    	one limit the Grouped AVP to no more than 3 AVPs? </t>
-    	<t>In the dia format Refinement is captured by adding 'Refines [application id]' at the end of the header/Grouped AVP definition.</t>
-    	</section>
-    	<section title="Enumerations" anchor="enumissues">
-    	<t>Enumeration use cases included definitions that referenced
-    	<list>
-    		<t>other Enumerations</t>
-    		<t>registries found on the web</t>
-    	</list>
-    	</t>
-    	<t>In the second case the Enumeration was typically removed.</t>
-    	<t>In a few cases Enumerations referenced other enumerations and then, in Notes, limited the values (was a proper subset). The opposite 
-    	case (a proper superset) never presented itself.</t>
-    	<t>Later specifications assigned Unsigned32 as a value in what appears to be an attempt to avoid registries or provide some pseudo 
-    	extensibility.  The exact purpose is actually unclear.</t>
-    	</section>
+     <section title="Refinements" anchor="refinements">
+     <t>Refinement (Extension) of Commands and Grouped AVPs.  This is a case where the same AVP/Command is referenced, i.e. same code or
+     vendor/code combination but the underlying members of the structure are different.  Two variants of this were found:
+      <list><t>The base (original definition) of the structure was refined.  In this case, the 'Refines' Statement in the header
+       may not include the application.</t>
+       <t>A refinement of a refinement.   In this case the specific refinement (AVP + App ID it was specified in) was the 
+       part of the refinement clause.</t>
+      </list>
+     </t>
+     <t>Note: this is not inheritance.  In inheritance the children also inherit the attributes (AVPs) of the parent. In many cases
+     the new definition removed some of the parents AVPs or further limited the occurrence amount of the AVPs.</t>
+     <t>Refinements can only occur if the Command/Grouped AVP is extensible, i.e. it includes *[AVP] in its definition.</t>
+     <t>The rationale for this can be shown by example. A value of 2[AVP] would not be considered extensible and its behavior is undefined.  
+     Can someone limit the number of AVPs present in a Command/Grouped AVP when that value is less than the total sum of the upper bounds of 
+     all member AVPs.  For example, if a  Grouped AVP permits at most 2 occurrences of AVP member "X" and 2 of AVP member "Y", how/why could/would 
+     one limit the Grouped AVP to no more than 3 AVPs? </t>
+     <t>In the dia format Refinement is captured by adding 'Refines [application id]' at the end of the header/Grouped AVP definition.</t>
+     </section>
+     <section title="Enumerations" anchor="enumissues">
+     <t>Enumeration use cases included definitions that referenced
+     <list>
+      <t>other Enumerations</t>
+      <t>registries found on the web</t>
+     </list>
+     </t>
+     <t>In the second case the Enumeration was typically removed.</t>
+     <t>In a few cases Enumerations referenced other enumerations and then, in Notes, limited the values (was a proper subset). The opposite 
+     case (a proper superset) never presented itself.</t>
+     <t>Later specifications assigned Unsigned32 as a value in what appears to be an attempt to avoid registries or provide some pseudo 
+     extensibility.  The exact purpose is actually unclear.</t>
+     </section>
   </section>
   <section title="Summary of Ingestion Barriers" anchor="codegenbarriers">
     <t>Errors, inconsistencies and Use Cases that could not be easily fulfilled aside.  Format differences hampered our ability to 
     quickly ingest Diameter strcutures from specifications.  The following is a list of patterns for just AVP header tables:
     </t>
-    <t> 
-            <figure anchor="fig_1"
-                  title="Table Patterns">
-            <artwork align="center"><![CDATA[
+    <t>
+    <figure anchor="fig_1" title="Table Patterns">
+    <artwork align="center"><![CDATA[
 Pattern 1: Parses the original table format for AVPs defined in an  
  IETF spec.
 
 The header for an RFC is 
                  AVP  Section           |    |     |SHLD|MUST|    |
 Attribute Name   Code Defined Data Type |MUST| MAY | NOT|NOT |Encr|
-   		
-Pattern 2: 	Parses the original table format for AVPs defined in a 
+     
+Pattern 2:  Parses the original table format for AVPs defined in a 
  3GPP spec
 
 Attribute Name|AVP Code|Section defined|Value Type|Must|May|Should - 
-	not| Must not | May Encr. |
-		
+ not| Must not | May Encr. |
+  
 Pattern 3: Parses the original table format for AVPs defined for 
  freediameter is BUT some rows define a spec boundary 
  such as the row below the header in this example
  
 |Attribute Name|Code|Section|Data|MUST|MAY|SHLD NOT|MUST NOT|Encr|
-		
-Pattern 4: Parses the original table format for AVPs defined in later
- IETF specs.
+  
+Pattern 4: Parses the original table format for AVPs defined in 
+ later IETF specs.
 
 The header for an RFC is
   |                | AVP  | Section |            |    |MUST |
@@ -232,8 +233,8 @@ The header for an RFC is
      Accounting-      483  9.8.7   Enumerated | M  |  V  |
        Realtime-Required                      |    |     | 
      
-Pattern 5: Parses the original table format for AVPs defined in some 
- IETF specs like RFC 7155.
+Pattern 5: Parses the original table format for AVPs defined in 
+ some IETF specs like RFC 7155.
 
 The header for an RFC is 
   |                | Section |    |MUST |
@@ -246,8 +247,8 @@ The header for an RFC is
    |                           | AVP  | Section |                |
    | Attribute Name            | Code | Defined |    Data Type   |
    
-Pattern 7:     Parses the original table format for AVPs defined in an 
- IETF spec.
+Pattern 7:     Parses the original table format for AVPs defined in 
+ an IETF spec.
     
 The header for an RFC is
                  AVP  Section           |    |MUST|
@@ -274,11 +275,11 @@ Pattern 10:  Parses the original table format for AVPs defined in a
  3GPP spec
     
 Attribute Name|AVP Code|Value Type|Must|May|Should not|Must not|
-   			
-   			]]></artwork>
+      
+      ]]></artwork>
             <postamble></postamble>
          </figure>
-   	</t>
+    </t>
     <t>Even with the patterns present some cleanup for "Notes..." was required to get the headers parsable.</t>
     <t>Not all specifications used an import table.  In fact some inter-mixed the tables used to note AVPs defined in the 
     spec and those that were referenced.  Some columns were removed to ensure that they fit within known formats as well. In 
@@ -294,380 +295,396 @@ Attribute Name|AVP Code|Value Type|Must|May|Should not|Must not|
   </section>
 </section>
 <section title="Specification Survey" anchor="avps">
+  <section title="Survey Process" anchor="survey_process">
+   <t>The current process for performing validation is to perform the following tasks:</t>
+   <t><list>
+    <t>Separate AVP and AVP import tables.  The primary goal of this was to study the table formats
+    to develop code to process them.</t>
+    <t>Save the file in a text format.  This document is then modified to correct the errors.</t>
+    <t>'Repair' enumerations as required through the use of a separate enum file that is modified as
+    issues are discovered.</t>
+    <t>Create a filter format file that captured data that was hard to find in the specifcation related to 
+    Diameter Applications.</t>
+   </list></t>
+   <t>The time spent for each document is the total amount of time from start to finish where the various files were split as
+   described above and the software was then ran.  As errors were discovered they were documented and then, as required, repaired.  In
+   some cases new software was developed to accommodate new use cases or formats.  That was added to the total processing time for the
+   document unless otherwise noted.</t>
+  </section>
   <section title="Summary of Errors And Use Cases" anchor="err_usecase_summary">
     <section title="RFC 4004" anchor="rfc4004err">
-    <t>Processing took approximately 20 minutes. Defect corrections were approximately an hour.</t>
+    <t>For RFC 4004 <xref target="RFC4004"/>, processing took approximately 20 minutes. Defect corrections were approximately an hour.</t>
     <t>
-	    <list>
-		    <t>The AVP Table is a unique format.  Line continuations of the table are not consistent.</t>
-		    <t>Enumerations are backwards - # Label</t>
-		    <t>Some issues were noted but not resolved in 4004.  See  https://www.ietf.org/mail-archive/web/dime/current/msg02053.html</t>
-		    <t>Note that MIP-MN-FA-SPI, MIP-MN-HA-SPI and MIP-HA-to-MN-SPI are missing in the specification.  They were removed from their respective Grouped AVPs.</t>
-		    <t>MIP-Nonce is in the AVP definition but MIP-nonce (lowercase 'n' for nonce) in Grouped definitions</t>
-		    </list>
-	</t>
+     <list>
+      <t>The AVP Table is a unique format. Line continuations of the table are not consistent.</t>
+      <t>Enumerations are backwards - # Label</t>
+      <t>Some issues were noted but not resolved in 4004.  See  https://www.ietf.org/mail-archive/web/dime/current/msg02053.html</t>
+      <t>Note that MIP-MN-FA-SPI, MIP-MN-HA-SPI and MIP-HA-to-MN-SPI are missing in the specification.  They were removed from their respective Grouped AVPs.</t>
+      <t>MIP-Nonce is in the AVP definition but MIP-nonce (lowercase 'n' for nonce) in Grouped definitions</t>
+      </list>
+ </t>
     </section>
     <section title="RFC 4006 bis (draft 03)" anchor="rfc4006biserr">
-    	<t>Processing took approximately 25 minutes.</t>
-    	<t>
-    	<list>
-		    <t>The AVP table contains inconsistent continuation lines.</t>
-		    <t>No import tables have been provided and had to be constructed.</t>
-		    <t>Had to change the User-Equipment-Info-Type AVP to the format of 'AVP (AVP Code XXX) is of type Enumerated' to keep the pattern to one type.</t>
-		    <t>Had to stub in TBD values.</t>
-		    <t>Misspelling of IPFiltrRule in table.</t>
-		    <t>Many enums referenced to registry values in the spec.</t>
-		    <t>Section 8.6 removes dashes for Check Balance Result</t>
-		    <t>Redirect-Address-Type Enumerations have spacing so appear as duplicates.</t>
-		    <t>CC-Session-Failover was phrased as 'is type of Enumerated' instead of 'is of type Enumerated' </t>
-    	</list>
-    	</t>
-  	</section>
-  	<section title="RFC 4950" anchor="rfc4950err">
-    	<t>Processing took approximately 15 minutes. No major issues were found.</t>
+     <t>For RFC 4006 bis <xref target="I-D.bertz-dime-rfc4006bis"/>, processing took approximately 25 minutes.</t>
+     <t>
+     <list>
+      <t>The AVP table contains inconsistent continuation lines.</t>
+      <t>No import tables have been provided and had to be constructed.</t>
+      <t>Had to change the User-Equipment-Info-Type AVP to the format of 'AVP (AVP Code XXX) is of type Enumerated' to keep the pattern to one type.</t>
+      <t>Had to stub in TBD values.</t>
+      <t>Misspelling of IPFiltrRule in table.</t>
+      <t>Many enums referenced to registry values in the spec.</t>
+      <t>Section 8.6 removes dashes for Check Balance Result</t>
+      <t>Redirect-Address-Type Enumerations have spacing so appear as duplicates.</t>
+      <t>CC-Session-Failover was phrased as 'is type of Enumerated' instead of 'is of type Enumerated' </t>
+     </list>
+     </t>
+   </section>
+   <section title="RFC 4950" anchor="rfc4950err">
+     <t>For RFC 4950 <xref target="RFC4950"/>, processing took approximately 15 minutes. No major issues were found.</t>
     </section>
     <section title="RFC 5447" anchor="rfc5447err">
-    	<t>Processing took approximately 10 minutes. No major issues were found.</t>
+     <t>For RFC 5447 <xref target="RFC5447"/>, processing took approximately 10 minutes. No major issues were found.</t>
     </section>
     <section title="RFC 5777 " anchor="rfc5777err">
-    	<t>Processing took approximately 3 hours.</t>
-    	<t>
-    	<list>
-	    	<t>A unique AVP table format.</t>
-	    	<t>Had to hand enter ALL Enum formats.</t>
-	    	<t>The approach we took for code enum is not correct.</t>
-	    	<t>Treatment-Action listed as Grouped in AVP table</t>
-	    	<t>IP-Bit-Mask-Width not present in table</t>
-	    	<t>4.1.7.7 and table are inconsistent with AVP definition used in groups 'IP-Bit-Mask-Width' vs. 'IP-Mask-Bit-Mask-Width'</t>
-	    	<t>Filter-Rule's use of ';' for comment is unconventional in parsing</t>
-    	</list>
-    	</t>
+     <t>For RFC 5777 <xref target="RFC5777"/>, processing took approximately 3 hours.</t>
+     <t>
+     <list>
+      <t>A unique AVP table format.</t>
+      <t>Had to hand enter ALL Enum formats.</t>
+      <t>The approach taken for enum processing is not correct for this document.</t>
+      <t>Treatment-Action listed as Grouped in AVP table</t>
+      <t>IP-Bit-Mask-Width not present in table</t>
+      <t>4.1.7.7 and table are inconsistent with AVP definition used in groups 'IP-Bit-Mask-Width' vs. 'IP-Mask-Bit-Mask-Width'</t>
+      <t>Filter-Rule's use of ';' for comment is unconventional in parsing</t>
+     </list>
+     </t>
     </section>
     <section title="RFC 5778" anchor="rfc7787">
-    	<t>Processing took 24 minutes.</t>
-    	<t>
-    	<list>
-    	<t>Continuations in AVP tables are inconsistent which required hand editing.  The continuation '-' sometimes appears on the first 
-    	line or not until the second which will require more complex code to deal with the situation.</t>
-    	<t>Imports of AVPs were mixed in with the table definitions specification.  This took the most time work out.</t>
-    	<t>Subtype field of the MN-HA and MN-AAA authentication mobility options are not defined in spec and needed to be stitched in later</t>
-    	<t>Although noted properly in text, MIP-Session-Key, MIP-Algorithm-Type, MIP-Replay-Mode was not list as being imported from an RFC in the AVP table </t>
-    	</list>
-    	</t>
+     <t>For RFC 5778 <xref target="RFC5778"/>, processing took 24 minutes.</t>
+     <t>
+     <list>
+     <t>Continuations in AVP tables are inconsistent which required hand editing.  The continuation '-' sometimes appears on the first 
+     line or not until the second which will require more complex code to deal with the situation.</t>
+     <t>Imports of AVPs were mixed in with the table definitions specification.  This took the most time work out.</t>
+     <t>Subtype field of the MN-HA and MN-AAA authentication mobility options are not defined in spec and needed to be stitched in (corrected) later.</t>
+     <t>Although noted properly in text, MIP-Session-Key, MIP-Algorithm-Type, MIP-Replay-Mode was not listed as being imported from an RFC in the AVP table.</t>
+     </list>
+     </t>
     </section>
     <section title="Draft Diameter Load" anchor="dimeloaderr">
-    	<t>Completed by hand in 10 minutes.  IANA allocations have occurred but the document has not left editors queue which means scripts would not work anyway</t>
+     <t>For Diameter Load <xref target="I-D.ietf-dime-load"/>, processing completed by hand in 10 minutes.  IANA allocations have occurred but the document has not left editors queue which means scripts would not work anyway</t>
     </section>
-   	<section title="RFC 6733" anchor="rfc6733err">
-    	<t>Processing took approximately 15 minutes.</t>
-    	<t>
-    	<list>
-    	<t>Continuations were inconsistent.</t>
-    	<t>The spec does not follow its own CCF.</t>
-    	</list>
-    	</t>
+    <section title="RFC 6733" anchor="rfc6733err">
+     <t>For RFC 6733 <xref target="RFC6733"/>, processing took approximately 15 minutes.</t>
+     <t>
+     <list>
+     <t>Continuations were inconsistent.</t>
+     <t>The spec does not follow its own CCF.</t>
+     </list>
+     </t>
     </section>  
     <section title="RFC 7155" anchor="rfc7155err">
-    	<t>Processing took several hours. The original RFC was used to fill in many of the gaps in the AVP tables.</t>
-    	<t>
-    	<list>
-    	<t>AVPs only used for compatibility are in the messages but not mentioned in the document, e.g. NAS-Identifier is still present.</t>
-		<t>RA-XXX to Re-Auth but Command acronyms, names and custom names are inter-mixed which is a bit confusing and makes it problematic to automate.</t>
-		<t>Hand stitched the enum values which often pointed to entire registries</t>
-		</list>
-		</t>
+     <t>For RFC 7155 <xref target="RFC7155"/>, processing took several hours. The original RFC was used to fill in many of the gaps in the AVP table code.</t>
+     <t>
+     <list>
+     <t>AVPs only used for compatibility are in the messages but not mentioned in the document, e.g. NAS-Identifier is still present.</t>
+  <t>RA-XXX to Re-Auth but Command acronyms, names and custom names are inter-mixed which is a bit confusing and makes it problematic to automate.</t>
+  <t>Hand stitched the enum values which often pointed to entire registries</t>
+  </list>
+  </t>
     </section>
-  	<section title="RFC 7683" anchor="rfc7683err">
-    	<t>Processing took approximately 40 minutes.</t>
-    	<t>
-    	<list>
-    	<t>The AVP table has a unique format.</t>
-    	<t>Continuations were on the second line requiring look ahead logic.</t>
-    	</list>
-    	</t>
+   <section title="RFC 7683" anchor="rfc7683err">
+     <t>For RFC 7683 <xref target="RFC7683"/>, processing took approximately 40 minutes.</t>
+     <t>
+     <list>
+     <t>The AVP table has a unique format.</t>
+     <t>Continuations were on the second line requiring look ahead logic.</t>
+     </list>
+     </t>
     </section>   
     <section title="RFC 7944" anchor="rfc7944err">
-    	<t>Processing took approximately 10 minutes. No major issues were found.</t>
+     <t>For RFC 7944 <xref target="RFC7944"/>, processing took approximately 10 minutes. No major issues were found.</t>
     </section> 
-    <section title="3GPP TS 29.213" anchor="ts29214err">
-    	<t>Processing took approximately 45 minutes.</t>
-    	<t>
-    	<list>
-    		<t>In the AVP tables a dot is used as a separator instead of a comma.</t>
-    		<t>In the Specific-Action AVP, the Label 'Void' occurs twice.  A hand modification was made.</t>
-    		<t>The Service-Info-Status AVP has spaces between the names in the labels.  This was corrected.</t>
-    	</list>
-    	</t>
+    <section title="3GPP TS 29.214" anchor="ts29214err">
+     <t>For TS 29.214 <xref target="TGPP.29.214"/>, processing took approximately 45 minutes.</t>
+     <t>
+     <list>
+      <t>In the AVP tables a dot is used as a separator instead of a comma.</t>
+      <t>In the Specific-Action AVP, the Label 'Void' occurs twice.  A hand modification was made.</t>
+      <t>The Service-Info-Status AVP has spaces between the names in the labels.  This was corrected.</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.229" anchor="ts29229err">
-    	<t>Processing this took 2 hours; 20 minutes.</t>
-    	<t>
-    	<list>
-    		<t>Many AVPs are listed as being DEFINED In but they are references.</t>
-    		<t>It does not import RFC 4005, 7155 or 4006 despite using their AVPs.</t>
-    		<t>Although resorted in Dec 2011, Wildcarded-IMPU was not added back to the AVP table 
-    		Table 6.3.1: Diameter Multimedia Application AVPs</t>
-    		<t>Line-Identifier also does not appear in the Table AND this AVP has Vendor Id ETSI (13019)</t>
-    		<t></t>
-    	</list>
-    	</t>
+     <t>For TS 29.229 <xref target="TGPP.29.229"/>, processing this took 2 hours; 20 minutes.</t>
+     <t>
+     <list>
+      <t>Many AVPs are listed as being DEFINED in the specification but they are references.</t>
+      <t>It does not import RFC 4005, 7155 or 4006 despite using their AVPs.</t>
+      <t>Although restored in Dec 2011 in a change request, Wildcarded-IMPU was not added back to the AVP table 
+      Table 6.3.1: Diameter Multimedia Application AVPs</t>
+      <t>Line-Identifier also does not appear in the Table and this AVP has Vendor Id ETSI (13019)</t>
+      <t></t>
+     </list>
+     </t>
     </section> 
     <section title="3GPP TS 29.468 " anchor="ts29468err">
-    	<t>Processing took approximately 60 minutes</t>
-    	<t>
-    	<list>
-    		<t>Another AVP Table format.</t>
-    		<t>The Commands were abbreviated in a manner not seen elsewhere in the document, e.g. GA-Request is only used in the command definition.</t>
-    		<t>AVP Definitions table removes dashes of the grouped AVPs.</t>
-    		<t>Duplicate AVP Names with different codes for MBMS-GW-SSM-IP-Address and MBMS-GW-SSM-Ipv6-Address.</t>
-    		<t>TMGI-Number in the Grouped AVP but it is defined in the table as TMGINumber.</t>
-    	</list>
-    	</t>
+     <t>For TS 29.468 <xref target="TGPP.29.468"/>, processing took approximately 60 minutes</t>
+     <t>
+     <list>
+      <t>Another AVP Table format.</t>
+      <t>The Commands were abbreviated in a manner not seen elsewhere in the document, e.g. GA-Request is only used in the command definition.</t>
+      <t>AVP Definitions table removes dashes of the Grouped AVPs.</t>
+      <t>Duplicate AVP names with different codes for MBMS-GW-SSM-IP-Address and MBMS-GW-SSM-Ipv6-Address.</t>
+      <t>TMGI-Number in the Grouped AVP but it is defined in the table as TMGINumber.</t>
+     </list>
+     </t>
     </section>  
     <section title="3GPP TS 29.345 " anchor="ts29345err">
-    	<t>Processing took approximately 70 minutes</t>
-    	<t>
-    	<list>
-    		<t>AVP Table inter-mixes '.' and ',' separation in the flags fields. Code was finally written to overcome this.</t>
-    		<t>In the AVP Table, App-Identifier was typed as 'Group' and not 'Grouped'.</t>
-    		<t>In the AVP Table, 'Assistance-info' was incorrect case for 'Info'.</t>
-    		<t>Section 6.3.31, WiFi-P2P-Assistance-Iinfo has an extra 'i' in it</t>
-    		<t>User-Identity's, ProSe-Response-Code's and ProSe-Query-Code's origin are unclear.  They is not in a reference section but in several groups.</t>
-    		<t>Discovery-Auth-Request and Match-Report-Info use incorrect case - ProSe-App-ID.</t>
-    		<t>ProSe-Query-Code and ProSe-Response-Code are noted in Grouped AVPs but do not exist elsewhere in the spec.</t>
-    	</list>
-    	</t>
+     <t>For TS 29.345 <xref target="TGPP.29.345"/>, processing took approximately 70 minutes</t>
+     <t>
+     <list>
+      <t>AVP Table inter-mixes '.' and ',' separation in the flags fields. Code was finally written to overcome this.</t>
+      <t>In the AVP Table, App-Identifier was typed as 'Group' and not 'Grouped'.</t>
+      <t>In the AVP Table, 'Assistance-info' was incorrect case for 'Info'.</t>
+      <t>Section 6.3.31, WiFi-P2P-Assistance-Iinfo has an extra 'i' in it</t>
+      <t>User-Identity's, ProSe-Response-Code's and ProSe-Query-Code's origin are unclear.  They is not in a reference section but in several groups.</t>
+      <t>Discovery-Auth-Request and Match-Report-Info use incorrect case - ProSe-App-ID.</t>
+      <t>ProSe-Query-Code and ProSe-Response-Code are noted in Grouped AVPs but do not exist elsewhere in the spec.</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.344 " anchor="ts29344err">
-    	<t>Processing took approximately 50 minutes</t>
-    	<t>
-    	<list>
-    		<t>ProSe-Subscriber-Information-Request is the name for ProSe-Initial-Location-Information-Request.</t>
-    		<t>Authorized-Discovery-Range was not listed as a defined AVP and has no values assigned.  Filled in as 3708 but these sections are not present in 29.230 at all</t>
-    	</list>
-    	</t>
+     <t>For TS 29.344 <xref target="TGPP.29.344"/>, processing took approximately 50 minutes</t>
+     <t>
+     <list>
+      <t>ProSe-Subscriber-Information-Request is the name for ProSe-Initial-Location-Information-Request.</t>
+      <t>Authorized-Discovery-Range was not listed as a defined AVP and has no values assigned.  Filled in as 3708 but these sections are not present in 29.230 at all</t>
+     </list>
+     </t>
     </section> 
     <section title="3GPP TS 29.343 " anchor="ts29343err">
-    	<t>Processing took approximately 10 minutes</t>
-    	<t>
-    	<list>
-    		<t>No issues.</t>
-    	</list>
-    	</t>
+     <t>For TS 29.343 <xref target="TGPP.29.343"/>, processing took approximately 10 minutes</t>
+     <t>
+     <list>
+      <t>No issues.</t>
+     </list>
+     </t>
     </section> 
         <section title="3GPP TS 29.338 " anchor="ts29338err">
-    	<t>Processing took approximately 55 minutes</t>
-    	<t>
-    	<list>
-    		<t>Table 6.3.2.2/1: Command-Code values for SGd/Gdd has spaces in the command names.</t>
-    		<t>Send-Routing-info-for-SM-Answer in the command definition is lowercase and can't be linked to the command table.</t>
-    		<t>Not an issue but an observation.  No Load Control draft reference?</t>
-    		<t>SGSN-Absent-User-Diagnostic SM has a space in it in the AVP table</t>
-    		<t>SM-Delivery- Failure-Cause has spacing issue in table.</t>
-    		<t>SMSMI-Correlation-ID has dash issues in its definition..</t>
-    		<t>SM-Delivery-Not-Intended has values as a list with ending of ',' and period.  Similar issues for SM-RP-MTI</t>
-    		<t>MME-SM-Delivery-Outcome- There is an extra &gt; at the end of the header definition</t>
-    		<t>SM-Enumerated-Delivery-Failure-Cause used ',' and '.' for the list.  Also the data type 'Enumerated' was not capitalized
-    		causing a miss in the system.</t>
-    		<t>MSISDN import is from 29.329 and not 23.329</t>
-    	</list>
-    	</t>
+     <t>For TS 29.338 <xref target="TGPP.29.338"/>, processing took approximately 55 minutes</t>
+     <t>
+     <list>
+      <t>Table 6.3.2.2/1: Command-Code values for SGd/Gdd has spaces in the command names.</t>
+      <t>Send-Routing-info-for-SM-Answer in the command definition is lowercase and can't be linked to the command table.</t>
+      <t>Not an issue but an observation.  There is no Load Control draft reference.</t>
+      <t>SGSN-Absent-User-Diagnostic SM has a space in it in the AVP table</t>
+      <t>SM-Delivery- Failure-Cause has spacing issue in table.</t>
+      <t>SMSMI-Correlation-ID has dash issues in its definition..</t>
+      <t>SM-Delivery-Not-Intended has values as a list with ending of ',' and period.  Similar issues for SM-RP-MTI</t>
+      <t>MME-SM-Delivery-Outcome- There is an extra &gt; at the end of the header definition</t>
+      <t>SM-Enumerated-Delivery-Failure-Cause used ',' and '.' for the list.  Also the data type 'Enumerated' was not capitalized
+      causing a miss in the system.</t>
+      <t>MSISDN import is from 29.329 and not 23.329</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.337 " anchor="ts29337err">
-    	<t>Processing took approximately 20 minutes</t>
-    	<t>
-    	<list>
-    		<t>No issues.</t>
-    	</list>
-    	</t>
+     <t>For TS 29.337 <xref target="TGPP.29.337"/>, processing took approximately 20 minutes</t>
+     <t>
+     <list>
+      <t>No issues.</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.336 " anchor="ts29336err">
-    	<t>Processing took approximately a billion minutes</t>
-    	<t>
-    	<list>
-    	   <t>Spacing issues in AVP tables for Maximum Latency, Maximum Response Time</t>
-    		<t> Scheduled-communication-time definition is lower case.</t>
-    		<t>Periodic-Time is lowercase in the AVP Table.</t>
-    		<t>Found a '/' in the Flags portion of the AVP Table.</t>
-    		<t>eNodeB-ID and Extended-eNodeB-ID in this spec but 'Id' in defining spec .217</t>
-    	</list>
-    	</t>
+     <t>For TS 29.336 <xref target="TGPP.29.336"/>, processing took approximately 9 hours as it was used for testing.</t>
+     <t>
+     <list>
+        <t>Spacing issues in AVP tables for Maximum Latency, Maximum Response Time</t>
+      <t>Scheduled-communication-time definition is lower case.</t>
+      <t>Periodic-Time is lowercase in the AVP Table.</t>
+      <t>Found a '/' in the Flags portion of the AVP Table.</t>
+      <t>eNodeB-ID and Extended-eNodeB-ID in this spec but 'Id' in defining spec .217</t>
+     </list>
+     </t>
     </section>  
     <section title="3GPP TS 29.329 " anchor="ts29329err">
-    	<t>Processing took approximately a billion minutes</t>
-    	<t>
-    	<list>
-    	   <t>Spacing issues in AVP User-Data-Request command. </t>
-    	   <t>Does not specify the Supported-Features, Feature-List, Feature-List-ID, Supported-Applications, Server-Name, Public-Identity from another app in the AVP table.. </t>
-    	</list>
-    	</t>
+     <t>For TS 29.329 <xref target="TGPP.29.329"/>, processing took approximately a billion minutes</t>
+     <t>
+     <list>
+        <t>Spacing issues in AVP User-Data-Request command. </t>
+        <t>Does not specify the Supported-Features, Feature-List, Feature-List-ID, Supported-Applications, Server-Name, Public-Identity from another app in the AVP table.</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 32.299" anchor="ts32299err">
-    	<t>Processing took approximately 9 hours</t>
-    	<t>
-    	<list>
-    	   <t>Unique Table format.</t>
-    	   <t>Required to remove imported AVPs and create a new table.</t>
-    	   <t>UTF8stirng case incorrect in AVP table for a number of entries.</t>
-    	   <t>ProSe-Direct-Communication- Transmission-Data-Container and Status- AS-Code have spaces.</t>
-    	   <t>LCS-Client-ID changed to LCS-Client-Id.</t>
-    	   <t> ProSe-Direct-Communication- Transmission-Data-Container</t>
-    	   <t>Related- Change-Condition- Information</t>
-    	   <t>Trunk-Group-ID was Trunk-Group-Id in AVP table.</t>
-    	   <t>Wrote more software to deal with the values flipped in enums (int first then label)</t>
-    	   <t>Enums were a large issue so hand editing had to take place to clean up the values.</t>
-    	   <t>'is of type of Enumerated' and 'is of type enumerated</t>
-    	   <t>AoC-Service-Type had to be repaired by hand as the algorithm picked up the overloaded Change-Condition values</t>
-    	   <t>MBMS-User-Service-Type</t>
-    	   <t>Node-Functionality needs fixing</t>
-    	   <t>Online-Charging-Flag had to be corrected</t>
-    	   <t>Originator had missing elements</t>
-    	   <t>Void numbers get caught in enums</t>
-    	   <t>PoC-Event-Type used semicolons</t>
-    	   <t>ProSe-Direst-Discovery-Mode spelling issue</t>
-    	   <t>ProSe- Role-Of-UE spacing issue</t>
-    	   <t>Participant-Access-Priority  uses colons in enum labels and mixed descriptions</t>
-    	   <t>Changed Type-Number Unsigned32 as the registry is too difficult to code</t>
-    	   <t>Submission-Timestamp not defined</t>
-    	   <t>PoC-User-Role-Ids instead of PoC-User-Role-IDs</t>
-    	   <t>Removed [ Monitored-HPLMN-Identifier ] as it made no sense and was not defined</t>
-		   <t>[ Prose-Function-PLMN-Identifier ] removed</t>
-    	   <t>[ VASP-Id ] &amp; [ VAS-Id ] removed from MMS-Information</t>
-    	   <t>Service-Generic-Information removed from Service-Information  defined in OMA-DDS-Charging_Data [223].</t>
-		   <t>[ 3GPP-Session-Stop-Indicator ] removed</t>
-	       <t>IM-Information DCD-Information removed from Service-Information defined in OMA-DDS-Charging_Data [223]</t>
-    	   <t>ePDG-Address vs EPDG-Address</t>
-    	   <t>M2M-Information removed from Service-Information as it was missing</t>
-    	   <t>SM-Device-Trigger-Information's Reference-Number removed since it was missing</t>
-    	   <t>Incoming-Trunk-Group-ID removed</t>
-    	</list>
-    	</t>
+     <t>For TS 32.399 <xref target="TGPP.32.299"/>, processing took approximately 9 hours</t>
+     <t>
+     <list>
+        <t>Unique Table format.</t>
+        <t>Required to remove imported AVPs and create a new table.</t>
+        <t>UTF8string case incorrect in AVP table for a number of entries.</t>
+        <t>ProSe-Direct-Communication- Transmission-Data-Container and Status- AS-Code have spaces.</t>
+        <t>LCS-Client-ID changed to LCS-Client-Id.</t>
+        <t>ProSe-Direct-Communication- Transmission-Data-Container</t>
+        <t>Related- Change-Condition- Information</t>
+        <t>Trunk-Group-ID was Trunk-Group-Id in AVP table.</t>
+        <t>Wrote more software to deal with the values flipped in enums (int first then label)</t>
+        <t>Enums were a large issue so hand editing had to take place to clean up the values.</t>
+        <t>'is of type of Enumerated' and 'is of type enumerated' were present in the document</t>
+        <t>AoC-Service-Type had to be repaired by hand as the algorithm picked up the overloaded Change-Condition values</t>
+        <t>MBMS-User-Service-Type</t>
+        <t>Node-Functionality needs fixing</t>
+        <t>Online-Charging-Flag had to be corrected</t>
+        <t>Originator had missing elements</t>
+        <t>Void numbers get caught in enums</t>
+        <t>PoC-Event-Type used semicolons</t>
+        <t>ProSe-Direst-Discovery-Mode spelling issue</t>
+        <t>ProSe- Role-Of-UE spacing issue</t>
+        <t>Participant-Access-Priority  uses colons in enum labels and mixed descriptions</t>
+        <t>Changed Type-Number Unsigned32 as the registry is too difficult to code</t>
+        <t>Submission-Timestamp not defined</t>
+        <t>PoC-User-Role-Ids instead of PoC-User-Role-IDs</t>
+        <t>Removed [ Monitored-HPLMN-Identifier ] as it made no sense and was not defined</t>
+     <t>[ Prose-Function-PLMN-Identifier ] removed</t>
+        <t>[ VASP-Id ] &amp; [ VAS-Id ] removed from MMS-Information</t>
+        <t>Service-Generic-Information removed from Service-Information defined in OMA-DDS-Charging_Data [223].</t>
+     <t>[ 3GPP-Session-Stop-Indicator ] removed</t>
+        <t>IM-Information DCD-Information removed from Service-Information defined in OMA-DDS-Charging_Data [223]</t>
+        <t>ePDG-Address vs EPDG-Address</t>
+        <t>M2M-Information removed from Service-Information as it was missing</t>
+        <t>SM-Device-Trigger-Information's Reference-Number removed since it was missing</t>
+        <t>Incoming-Trunk-Group-ID removed</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.154" anchor="ts29154err">
-    	<t>Processing took approximately 10 minutes</t>
-    	<t>
-    	<list>
-    	   <t>Variance of a later Table format.</t>
-    	   <t>Command Codes were abbreviated in such a way that they had to be changed so the software could match them up properly</t>
-    	   <t>Time-window grouped AVP definition corrected to Time-Window</t>   	   
-    	</list>
-    	</t>
+     <t>For TS 29.154 <xref target="TGPP.29.154"/>, processing took approximately 10 minutes</t>
+     <t>
+     <list>
+        <t>Variance of a later Table format.</t>
+        <t>Command Codes were abbreviated in such a way that they had to be changed so the software could match them up properly</t>
+        <t>Time-window grouped AVP definition corrected to Time-Window</t>       
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.215" anchor="ts29215err">
-    	<t>Processing took approximately 60 minutes</t>
-    	<t>
-    	<list>
-    	   <t>S9a* reference table has a TS reference instead of 3GPP TS.</t>
-    	   <t>UE-Local-IPv6-Prefix type in AVP table is all lower case.</t>
-    	   <t>Note that ' is of type of Enumerated" was corrected to allow the software to catch the Subsession-Operation and DRA-Binding.</t>
-    	   <t>Imports are missing.</t>
-    	   <t>Change Framed-Ipv6-Prefix to Framed-IPv6-Prefix..</t>
-    	   <t>Logical-Access-ID to Logical-Access-Id</t>
-    	   <t>Physical-Access-ID to Physical-Access-Id</t>
-    	</list>
-    	</t>
+     <t>For TS 29.215 <xref target="TGPP.29.215"/>, processing took approximately 60 minutes</t>
+     <t>
+     <list>
+        <t>S9a* reference table has a TS reference instead of 3GPP TS.</t>
+        <t>UE-Local-IPv6-Prefix type in AVP table is all lower case.</t>
+        <t>Note that ' is of type of Enumerated" was corrected to allow the software to catch the Subsession-Operation and DRA-Binding.</t>
+        <t>Imports are missing.</t>
+        <t>Change Framed-Ipv6-Prefix to Framed-IPv6-Prefix.</t>
+        <t>Logical-Access-ID to Logical-Access-Id</t>
+        <t>Physical-Access-ID to Physical-Access-Id</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.368 " anchor="ts29368err">
-    	<t>Processing took approximately 20 minutes</t>
-    	<t>
-    	<list>
-    		<t>TS used in imported AVP tables.</t>
-    		<t>Command Codes were abbreviated in such a way that they had to be changed so the software could match them up properly</t> 
-    		<t>'Feature-Supported-In-Final-Target AVP' in the AVP definitions table.</t>
-    		<t>External-Id used instead of External-Identifier.</t>
-    	</list>
-    	</t>
+     <t>For TS 29.368 <xref target="TGPP.29.368"/>, processing took approximately 20 minutes</t>
+     <t>
+     <list>
+      <t>TS used in imported AVP tables.</t>
+      <t>Command Codes were abbreviated in such a way that they had to be changed so the software could match them up properly.</t> 
+      <t>'Feature-Supported-In-Final-Target AVP' in the AVP definitions table.</t>
+      <t>External-Id used instead of External-Identifier.</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.128 " anchor="ts29128err">
-    	<t>Processing took approximately 30 minutes</t>
-    	<t>
-    	<list>
-			<t>Result Codes were not found</t>
-			<t>DRMP definitions are not handled.</t>
-			<t>Non-IP-Data had type of OctetString</t>
-    	</list>
-    	</t>
+     <t>For TS 29.128 <xref target="TGPP.29.128"/>, processing took approximately 30 minutes</t>
+     <t>
+     <list>
+   <t>Result Codes were not found</t>
+   <t>DRMP definitions are not handled.</t>
+   <t>Non-IP-Data had type of OctetString</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.173 " anchor="ts29173err">
-    	<t>Processing took approximately 25 minutes</t>
+     <t>For TS 29.173 <xref target="TGPP.29.173"/>, processing took approximately 25 minutes</t>
     </section>
     <section title="3GPP TS 29.217 " anchor="ts29217err">
-    	<t>Processing took approximately 43 minutes.</t>
-    	<t>The Modify-Uecontext-Request / Answer command definitions did not match anything in the Command Table.</t>
-	</section>
+     <t>Processing took approximately 43 minutes.</t>
+     <t>The Modify-Uecontext-Request / Answer command definitions did not match anything in the Command Table.</t>
+ </section>
     <section title="3GPP TS 29.273 " anchor="ts29273err">
-    	<t>Processing took 60 minutes.</t>
-    	<t><list>
-    		<t>The AN-Trusted enum wasn't picked up by the doc.</t>
-			<t>Transport-Acess-Type - misspelling resulting in loss in the document.</t>
-			<t>Case issue - Subscription-ID vs Subscription-Id</t>
-			<t>MIP6-Feature-Vector shows as 64 bit in the document but 32 in RFC 5447.</t>
-    	</list>
-    	</t>
+     <t>For TS 29.273 <xref target="TGPP.29.273"/>, processing took 60 minutes.</t>
+     <t><list>
+      <t>The AN-Trusted enum wasn't picked up by the code.</t>
+   <t>Transport-Acess-Type - misspelling resulting in loss in the document.</t>
+   <t>Case issue - Subscription-ID vs Subscription-Id</t>
+   <t>MIP6-Feature-Vector shows as 64 bit in the document but 32 in RFC 5447.</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.272 " anchor="ts29272err">
-    	<t>Processing took approximately 3 hours. Multiple issues were found but this document
-    	 was used as a reference for development and not considered in processing efficiencies
-    	 calculations.</t>
-    	<t>
-    	<list>
-    		<t>Table 7.3.1/1: S6a/S6d, S7a/S7d and S13/S13' specific Diameter AVPs Alert-Reason has type of 'Enumerate'</t>
-			<t>ProSe-Subscription-Data Grouped AVP has a type ID of 'xxx'</t>
-			<t>Supported-Services AVP has a type of 'zzzz'</t>
-			<t>'Subscriber Status' AVP needs a dash</t>
-			<t>'Notification- To-UE-User' has a space.</t>
-			<t>'IDR- Flags' has a space.</t>
-			<t>'Monitoring Event Report' has multiple spaces.</t>
-			<t>'eNodeB-ID' and 'Extended-eNodeB-ID' in this spec but 'Id' in defining spec .217</t>
-			<t>Claims QoS-Capability as a defined AVP but it is part of RFC 5777</t>
-			<t>Trace-Depth is an enum in 32.422 and had to be manually added.</t>
-			<t>Job-Type. From the specification, 'The possible values are those defined in 3GPP TS 32.422 [23] for Job-Type.'</t>
-			<t>'Report Interval' has a space.</t>
-			<t>Preferred-Data-Mode was listed as a Grouped type but is Unsigned32.</t>
-    	</list>
-    	</t>
+     <t>For TS 29.272 <xref target="TGPP.29.272"/>, processing took approximately 3 hours. Multiple issues were found but this document
+      was used as a reference for development and not considered in processing efficiencies
+      calculations.</t>
+     <t>
+     <list>
+      <t>Table 7.3.1/1: S6a/S6d, S7a/S7d and S13/S13' specific Diameter AVPs Alert-Reason has type of 'Enumerate'</t>
+   <t>ProSe-Subscription-Data Grouped AVP has a type ID of 'xxx'</t>
+   <t>Supported-Services AVP has a type of 'zzzz'</t>
+   <t>'Subscriber Status' AVP needs a dash</t>
+   <t>'Notification- To-UE-User' has a space.</t>
+   <t>'IDR- Flags' has a space.</t>
+   <t>'Monitoring Event Report' has multiple spaces.</t>
+   <t>'eNodeB-ID' and 'Extended-eNodeB-ID' in this spec but 'Id' in defining spec .217</t>
+   <t>Claims QoS-Capability as a defined AVP but it is part of RFC 5777</t>
+   <t>Trace-Depth is an enum in 32.422 and had to be manually added.</t>
+   <t>Job-Type reference vague. From the specification, 'The possible values are those defined in 3GPP TS 32.422 [23] for Job-Type.'</t>
+   <t>'Report Interval' has a space.</t>
+   <t>Preferred-Data-Mode was listed as a Grouped type but is Unsigned32.</t>
+     </list>
+     </t>
     </section>
     <section title="3GPP TS 29.061 " anchor="ts29061err">
-    	<t>Processing took approximately 2 hours.</t>
-    	<t>
-    	<list>
-    	<t>Enums use 'AVP code' vs. 'AVP Code'</t>
-    	<t>3 tables for 4 of the apps</t>
-    	<t>Enums have to be added by hand as they are not tied by application ID</t>
-    	<t>Messages did not have App IDs in the CCF headers as they are extensions</t>
-    	<t>MBMS-Session-Repetition-Number has M.V ('.' instead of comma)</t>
-    	<t>MBMS-User-Data-Mode-Indication Enumeration uses spaces for its label values</t>
-    	<t>3BPP-PDP-Type - Enum defined as RADIUS; not available to parser in Diameter</t>
-    	</list>
-    	</t>
-    </section>	
+     <t>For TS 29.2061 <xref target="TGPP.29.061"/>, processing took approximately 2 hours.</t>
+     <t>
+     <list>
+     <t>Enums use 'AVP code' vs. 'AVP Code'</t>
+     <t>3 AVP tables created for 4 of the apps</t>
+     <t>Enums have to be added by hand as they are not tied by application ID</t>
+     <t>Messages did not have App IDs in the CCF headers as they are extensions</t>
+     <t>MBMS-Session-Repetition-Number has 'M.V' ('.' instead of comma)</t>
+     <t>MBMS-User-Data-Mode-Indication Enumeration uses spaces for its label values</t>
+     <t>3BPP-PDP-Type - Enum defined as RADIUS; not available to parser in Diameter</t>
+     </list>
+     </t>
+    </section> 
     <section title="3GPP TS 29.212 " anchor="ts29212err">
-    	<t>Processing took approximately 7 hours.</t>
-    	<t>
-    	<list>
-    		<t>Logical-Access-ID and Physical-Access-ID have case inconsistencies with other specifications.</t>
-			<t>Acronyms in the command code lines but they do not correlate to previously described acronyms in the document.</t>
-			<t>Table 5c.6.1.1 is incomplete.</t>
-			<t>Periods, '.', were used as separators in AVP tables, e.g.'M.V'.</t>
-		    <t>Sd and St use TS-Request and TS-Answer but they are don't have application assigned codes.</t>
-			<t>'Enumerated' appears in a type definition</t>
-			<t>Incorrect reference of 7863 vs 7683</t>
-			<t>Manual correction was required in the document.  Somehow PCC-Rule-Status did not got the enums it needed.  
-				It appears no spacing created an error.  Hopefully software can be updated to overcome this.</t>
-			<t>Pre-emption Vulnerability (in the Section's first line) spacing kills the correct name identification.</t>
-			<t>In many Enumerations there is an extra space between 'of type' and 'Enumerated'</t>
-			<t>PCC-Rule-Status has a label of 'TEMPORARILY INACTIVE'</t>
-			<t>Bearer-Control-Mode 'is of type of Enumerated' issue</t>
-			<t>Network-Request-Support Label spaces</t>
-			<t>For the Default-Access AVP - 'The values defined in the Default-Access AVP are the same as the ones defined in IP-CAN-Type AVP.'</t>
-			<t>Also, mentions '3GPP-EPS IP-CAN' as an option but it is not an option in the referenced type.</t>
-			<t>CS-Service-QoS-Request-Operation 'is type of Enumerated, </t>
-			<t>CS-Service-Resource-Failure-Cause AVP (AVP code2814) has a spacing issue </t>
-			<t>'Logical-Access-ID to 'Logical-Access-Id'</t>
-			<t>CS-Service-QoS-Request-Identifier is in table as CS-Service-Qos-Request-Identifier</t>
-			<t>Some enumerations with duplicate labels, e.g. Specific-Action</t>
-    	</list>
-    	</t>
+     <t>For TS 29.212 <xref target="TGPP.29.212"/>, processing took approximately 7 hours.</t>
+     <t>
+     <list>
+      <t>Logical-Access-ID and Physical-Access-ID have case inconsistencies with other specifications.</t>
+   <t>Acronyms in the command code lines but they do not correlate to previously described acronyms in the document.</t>
+   <t>Table 5c.6.1.1 is incomplete.</t>
+   <t>Periods, '.', were used as separators in AVP tables, e.g.'M.V'.</t>
+      <t>Sd and St use TS-Request and TS-Answer but they are don't have application assigned codes.</t>
+   <t>'Enumerated' appears in a type definition</t>
+   <t>Incorrect reference of 7863 vs 7683</t>
+   <t>Manual correction was required in the document.  Somehow PCC-Rule-Status did not got the enums it needed.  
+    It appears no spacing created an error.  Hopefully software can be updated to overcome this.</t>
+   <t>Pre-emption Vulnerability (in the Section's first line) spacing kills the correct name identification.</t>
+   <t>In many Enumerations there is an extra space between 'of type' and 'Enumerated'</t>
+   <t>PCC-Rule-Status has a label of 'TEMPORARILY INACTIVE'</t>
+   <t>Bearer-Control-Mode 'is of type of Enumerated' issue</t>
+   <t>Network-Request-Support Label spaces</t>
+   <t>For the Default-Access AVP - 'The values defined in the Default-Access AVP are the same as the ones defined in IP-CAN-Type AVP.'</t>
+   <t>Also, mentions '3GPP-EPS IP-CAN' as an option but it is not an option in the referenced type.</t>
+   <t>CS-Service-QoS-Request-Operation 'is type of Enumerated, </t>
+   <t>CS-Service-Resource-Failure-Cause AVP (AVP code2814) has a spacing issue </t>
+   <t>'Logical-Access-ID to 'Logical-Access-Id'</t>
+   <t>CS-Service-QoS-Request-Identifier is in table as CS-Service-Qos-Request-Identifier</t>
+   <t>Some enumerations with duplicate labels, e.g. Specific-Action</t>
+     </list>
+     </t>
     </section>
   </section>
 </section>
@@ -676,50 +693,50 @@ Attribute Name|AVP Code|Value Type|Must|May|Should not|Must not|
     <t>The overall recommendations are as follows:</t>
     <t>
     <list>
-    	<t>The name of all AVPs, Commands and Grouped AVPs appear consistently throughout the document.</t>
-    	<t>The letter case MUST be consistent for all names.</t>
-    	<t>No spaces should appear in the names.</t>
-    	<t>Use of underscores is discouraged except for line continuations in tables.</t>
+     <t>The name of all AVPs, Commands and Grouped AVPs appear consistently throughout the document.</t>
+     <t>The letter case MUST be consistent for all names.</t>
+     <t>No spaces should appear in the names.</t>
+     <t>Use of underscores is discouraged except for line continuations in tables.</t>
     </list>
     </t>
-	   <section title="Defined AVPs" anchor="avp_errorreductions">
-	    <t>This section addresses AVPs defined in the specification. 
-	    The following recommendations are made:</t>
-	    <t><list>
-	    	<t>Tables MUST include the following columns:
-	    		<list>
-	    			<t>Attribute Name</t>
-	    			<t>AVP Code</t>
-	    			<t>Section Defined</t>
-	    			<t>Data Type</t>
-	    			<t>AVP Flag Rules for MUST and MUST NOT</t>
-	    		</list>
-	    	</t>
-	    	<t>Tables MAY include Notes and other notations in the column headers but
-	    	MUST NOT exceed more than 8 lines of text to describe the header.</t>
-	    	<t>The columns may be separated by space, '|' or both when in text format
-				that follows one of the following style.
-				<list>
-					<t>All columns except AVP Flags are separated by whitespace.  Flag
-					column boundaries are pipe delimited.</t>
-					<t>Pipe delimited columns with the exception of the first column.</t>
-				</list>
-			</t>
-			<t>AVP Names MUST NOT have spaces or underscores.</t>
-			<t>Use '.' or ',' as Flag separators.  Although no space is also acceptable.</t>
-			<t>Use of two lines for an AVP is permitted. The following conditions apply. 
-				<list>
-					<t>A hyphen or underscore MUST be used at the end of the first line 
-					or at the beginning of the second (not both).</t>  
-					<t>An underscore is not a part of the AVP name</t>
-					<t>All other columns except the Name MUST appear on the same line.</t>
-				</list>
-			</t>
-			<t>All Defined AVP Tables in the specification MUST use the same header format.</t>
-			<t>Imported or Re-used AVPs MUST NOT be present in defined AVP tables.</t>
-	   </list></t>
-	   <t>
-	   <figure anchor="fig_2" title="Accepted Table Patterns">
+    <section title="Defined AVPs" anchor="avp_errorreductions">
+     <t>This section addresses AVPs defined in the specification. 
+     The following recommendations are made:</t>
+     <t><list>
+      <t>Tables MUST include the following columns:
+       <list>
+        <t>Attribute Name</t>
+        <t>AVP Code</t>
+        <t>Section Defined</t>
+        <t>Data Type</t>
+        <t>AVP Flag Rules for MUST and MUST NOT</t>
+       </list>
+      </t>
+      <t>Tables MAY include Notes and other notations in the column headers but
+      MUST NOT exceed more than 8 lines of text to describe the header.</t>
+      <t>The columns may be separated by space, '|' or both when in text format
+    that follows one of the following styles.
+    <list>
+     <t>All columns except AVP Flags are separated by whitespace and Flag
+     column boundaries are pipe delimited.</t>
+     <t>Pipe delimited columns with the exception of the first column.</t>
+    </list>
+   </t>
+   <t>AVP Names MUST NOT have spaces or underscores.</t>
+   <t>Use '.' or ',' as Flag separators.  Although no space is also acceptable.</t>
+   <t>Use of two lines for an AVP is permitted. The following conditions apply. 
+    <list>
+     <t>An underscore MUST be used at the end of the first line 
+     or at the beginning of the second (not both).</t>  
+     <t>An underscore is not a part of the AVP name</t>
+     <t>All other columns except the Name MUST appear on the same line.</t>
+    </list>
+   </t>
+   <t>All Defined AVP Tables in the specification MUST use the same header format.</t>
+   <t>Imported or Re-used AVPs MUST NOT be present in defined AVP tables.</t>
+    </list></t>
+    <t>
+    <figure anchor="fig_2" title="Accepted Table Patterns">
             <artwork align="center"><![CDATA[
    Example One
    
@@ -733,53 +750,52 @@ Attribute Name|AVP Code|Value Type|Must|May|Should not|Must not|
                   | AVP  | Section |            |    |MUST |
    Attribute Name | Code | Defined | Data Type  |MUST| NOT |
    ---------------|------+---------+------------+----+-----|
-   AVP-Name       |  85  | 9.8.2   | Unsigned32 | M  |  V  |            			
-   			]]></artwork>
+   AVP-Name       |  85  | 9.8.2   | Unsigned32 | M  |  V  |               
+      ]]></artwork>
             <postamble></postamble>
          </figure>
-   	   </t>    
-   	   <t>An open question exists when multiple AVPs tables are present and associated with 
-   	   a specific application within the specification. How the application can be associated
-   	   to the table is an open question.</t>
-	   </section>  
-	   <section title="Imported AVPs" anchor="imported_errorreductions">
-	    <t>Imported or Re-used AVPs MUST be included in the specification.  A table
-	    MUST be present if AVPs are re-used.</t>
-	    <t>The table MUST include the AVP, Source document columns.</t>
-	    <t>The table MAY include a Comment column.</t>
-	    <t>An M-bit column MAY be present as required.</t>
-	    <t>The table MUST be pipe delimited.</t>
-	   </section>  
-	   <section title="Grouped AVPs" anchor="gavp_errorreductions">
-	    <t>When a Grouped AVP is refined a Refine keyword is appended to the end
-	    of the header.  It MUST include an application identifier of the Grouped AVP 
-		it refines if that application was not the original specification or 'version'
-		of the Grouped AVP.   When the Grouped AVP refines the original definition of the
-		Gropued AVP it SHOULD include its application identifier.</t>
-	    <t>The refined Grouped AVP MUST be included in the AVP Import table.</t>
-	    <t>Open question, should the vendor and application identifiers of the application 
-	    that created be in the Grouped AVP header?</t>
-	    <t>When refining a Grouped AVP the following conditions apply:</t>
-	    <t>
-	    <list>
-	    	<t>The original AVP MUST be extensible, i.e. it MUST have the [AVP] member.</t>
-	    	<t>Any refinement of an AVP present in the refined Group MUST adhere to the 
-	    	restrictions, if any, that were defined by inherited Groups.  For example,
-	    	if a Grouped AVP refines an attribute 'Foo' to the range X*Y and 'Foo'x is 
-	    	defined in the original AVP with a range of A*B then X &gt;= A and Y &lt;= B.</t>
-	    	<t>AVPs retained without further restriction of the number of occurrences MUST
-	    	be kept in the Refining AVP's definition otherwise they are assumed to be
-	    	dropped from 
-the new AVP definition.  Otherwise, it is impossible to determine
-	    	the Author's intent.</t>
-	    </list>
-	    </t>
-	    <t>Open question, can a Grouped AVP have a range limited [AVP] member, e.g. 
-	    *5[AVP]?</t>
-	    <t>Figure <xref target="fig_3"/> shows an example refinement.  In it all but
-	    the User-Name AVP are dropped in the new definition.</t>
-	    <t>
-	    <figure anchor="fig_3" title="Refined AVP from TS 29.128 and TS 29.336">
+       </t>    
+       <t>An open question exists when multiple AVPs tables are present and associated with 
+       a specific application within the specification. How the application can be associated
+       to the table is an open question.</t>
+    </section>  
+    <section title="Imported AVPs" anchor="imported_errorreductions">
+     <t>Imported or Re-used AVPs MUST be included in the specification.  A table
+     MUST be present if AVPs are re-used/imported.</t>
+     <t>The table MUST include the AVP and Source document columns.</t>
+     <t>The table MAY include a Comment column.</t>
+     <t>An M-bit column MAY be present as required.</t>
+     <t>The table MUST be pipe delimited when in text format.</t>
+    </section>  
+    <section title="Grouped AVPs" anchor="gavp_errorreductions">
+     <t>When a Grouped AVP is refined a Refine keyword is appended to the end
+     of the header.  It MUST include an application identifier of the Grouped AVP 
+  it refines if that application was not the original specification or 'version'
+  of the Grouped AVP.   When the Grouped AVP refines the original definition of the
+  Gropued AVP it SHOULD include the referenced application identifier.</t>
+     <t>The refined Grouped AVP MUST be included in the AVP Import table and NOT in the defined AVPs table.</t>
+     <t>Open question, should the vendor and application identifiers of the application 
+     that created be in the Grouped AVP header?</t>
+     <t>When refining a Grouped AVP the following conditions apply:</t>
+     <t>
+     <list>
+      <t>The original AVP MUST be extensible, i.e. it MUST have the '*[AVP]' member.</t>
+      <t>Any refinement of an AVP present in the refined Group MUST adhere to the 
+      restrictions, if any, that were defined by inherited Groups.  For example,
+      if a Grouped AVP refines an attribute 'Foo' to the range X*Y and 'Foo'x is 
+      defined in the original AVP with a range of A*B then X &gt;= A and Y &lt;= B.</t>
+      <t>AVPs retained without further restriction of the number of occurrences MUST
+      be kept in the Refining AVP's definition otherwise they are assumed to be
+      dropped from the new AVP definition.  Otherwise, it is impossible to determine
+      the Author's intent.</t>
+     </list>
+     </t>
+     <t>Open question, can a Grouped AVP have a range limited [AVP] member, e.g. 
+     *5[AVP]?</t>
+     <t>Figure <xref target="fig_3"/> shows an example refinement.  In it all but
+     the User-Name AVP are dropped in the new definition.</t>
+     <t>
+     <figure anchor="fig_3" title="Refined AVP from TS 29.128 and TS 29.336">
             <artwork align="center"><![CDATA[
 From TS 29.336
 User-Identifier ::= <AVP-Header: 3102, 10415>
@@ -793,44 +809,44 @@ From TS 29.128
 User-Identifier ::= <AVP-Header: 3102, 10415, Refines>
   [User-Name]
   *[AVP]
-               	]]></artwork>
+                ]]></artwork>
             <postamble></postamble>
          </figure>
-   	   </t> 
-	   </section>  
-	   <section title="Command Errors" anchor="commanmd_errorreductions">
-	    <t>The largest issue with Commands is the inconsistent values between the 
-	    name, three letter acronym defined in the table and the actual name used 
-	    in the command definition.  Maintaining consistency will resolve this issue.</t>
-	    <t>Like Grouped AVP refinement, a Refine keyword is appended to the end
-	    of the header.  It MUST include an application identifier of the Command 
-		it refines if that application was not the original specification or 'version'
-		of the Command.   When the Command refines the original definition of the
-		Command it SHOULD include its application identifier.</t>
-		<t>When refining a Command the following conditions apply:</t>
-	    <t><list>
-	    	<t>The original Command MUST be extensible, i.e. it MUST have the [AVP] member.</t>
-	    	<t>Any refinement of an AVP present in the refined Command MUST adhere to the 
-	    	restrictions, if any, that were defined by inherited Commands.  For example,
-	    	if a Command refines an attribute 'Foo' to the range X*Y and 'Foo' is 
-	    	defined in the original Command with a range of A*B then X &gt;= A and Y &lt;= B.</t>
-	    	<t>Commands retained without further restriction of the number of occurrences MUST
-	    	be kept in the Refining Command's definition otherwise they are assumed to be
-	    	dropped from the new Commands definition.  Otherwise, it is impossible to determine
-	    	the Author's intent.</t>
-	    </list></t>
-	   </section> 
-	   <section title="Enumeration Errors" anchor="enum_errorreductions">
-	    <t>Enumeration Value Names MUST adhere to alphanumeric and underscore characters.</t>
-	    <t>Enumeration Value Names MUST not begin with an underscore.</t>
-	    <t>When being defined the format must include the label and the value assigned
-	    with the label enclosed in parenthesis on a single.  This will confusion where
-	    the label values end in integers and are close to the numeric value.  For example,
-	    'speed_10 10' is okay, 'speed_1010' is a error.  This can be avoided by requiring
-	    the enclosure of the values in parenthesis, e.g. 'speed_10 (10)' and 'speed_10(10)'.
-	   	The last example may not be as readable as desired but it can be understood. 
-	    </t>
-	   </section>   
+       </t> 
+    </section>  
+    <section title="Command Errors" anchor="commanmd_errorreductions">
+     <t>The largest issue with Commands is the inconsistent values between the 
+     name, three letter acronym defined in the table and the actual name used 
+     in the command definition.  Maintaining consistency will resolve this issue.</t>
+     <t>Like Grouped AVP refinement, a Refine keyword is appended to the end
+     of the header.  It MUST include an application identifier of the Command 
+  it refines if that application was not the original specification or 'version'
+  of the Command.   When the Command refines the original definition of the
+  Command it SHOULD include its application identifier.</t>
+  <t>When refining a Command the following conditions apply:</t>
+     <t><list>
+      <t>The original Command MUST be extensible, i.e. it MUST have the '*[AVP]' member.</t>
+      <t>Any refinement of an AVP present in the refined Command MUST adhere to the 
+      restrictions, if any, that were defined by inherited Commands.  For example,
+      if a Command refines an attribute 'Foo' to the range X*Y and 'Foo' is 
+      defined in the original Command with a range of A*B then X &gt;= A and Y &lt;= B.</t>
+      <t>Commands retained without further restriction of the number of occurrences MUST
+      be kept in the Refining Command's definition otherwise they are assumed to be
+      dropped from the new Commands definition.  Otherwise, it is impossible to determine
+      the Author's intent.</t>
+     </list></t>
+    </section> 
+    <section title="Enumeration Errors" anchor="enum_errorreductions">
+     <t>Enumeration Value Names MUST adhere to alphanumeric and underscore characters.</t>
+     <t>Enumeration Value Names MUST not begin with an underscore.</t>
+     <t>When being defined the format MUST include the label and the value assigned
+     with the label enclosed in parenthesis on a single.  Otherwise, this will confusion when
+     the label values end in integers and are close to the numeric value.  For example,
+     'speed_10 10' is okay, 'speed_1010' is a error.  This can be avoided by requiring
+     the enclosure of the values in parenthesis, e.g. 'speed_10 (10)' and 'speed_10(10)'.
+     The last example may not be as readable as desired but it can be understood. 
+     </t>
+    </section>   
   </section>
   <section title="Formats for automated validation" anchor="codegen">
     <t>This section discusses ways by which further clarity can be defined in a specification
@@ -838,46 +854,46 @@ User-Identifier ::= <AVP-Header: 3102, 10415, Refines>
     <t>Following the recommendations in the previous section will reduce errors but there are
     still many pieces of information that cannot be programmatically validated.  This includes 
     the following:</t>
- 	<t><list>
- 		<t>GAP 1: The application identifier and name of an application.</t>
- 		<t>GAP 2: The application and vendor identifiers associated with a defined AVP table.</t>
- 		<t>GAP 3: The application and vendor identifiers associated with Commands.</t>
- 		<t>GAP 4: Reused and newly defined result codes for an application.</t>
- 		<t>GAP 5: Easily parsed enumerations that cover all use cases.</t>
- 	</list></t>
- 	<t>The following formats show an example of how information could be added to an Appendix to 
- 	close these gaps.</t>
- 	    <t>
-	    <figure anchor="fig_4" title="Example Application and Result Code Formats">
+  <t><list>
+   <t>GAP 1: The application identifier and name of an application.</t>
+   <t>GAP 2: The application and vendor identifiers associated with a defined AVP table.</t>
+   <t>GAP 3: The application and vendor identifiers associated with Commands.</t>
+   <t>GAP 4: Reused and newly defined result codes for an application.</t>
+   <t>GAP 5: Easily parsed enumerations that cover all use cases.</t>
+  </list></t>
+  <t>The following formats show an example of how information could be added to an Appendix to 
+  close these gaps.</t>
+      <t>
+     <figure anchor="fig_4" title="Example Application and Result Code Formats">
             <artwork align="center"><![CDATA[
 1: AppFoo ::= <Diameter Application: 10415 101010>
-2:	Command1-Name-Request	C1R
-3: 	Command1-Name-Answer	C1A
-4: 	
+2: Command1-Name-Request C1R
+3:  Command1-Name-Answer C1A
+4:  
 5: Result-Codes ::= <Diameter Result-Codes: 101010>
-6: 	NEW_RESULT	(4999)
+6:  NEW_RESULT (4999)
 7:  IMPORTED_RESULT IMPORT (4010)
-              	]]></artwork>
+               ]]></artwork>
           <postamble></postamble>
        </figure>
- 	 </t> 	
- 	 <t>GAP 1 is closed in line 1.  GAP 3 is closed in lines 1 through 3 while GAP 4
- 	 is closed by lines 5 through 7.</t>
- 	 <t>GAP 2 can be closed by using a common discernable Table Name format, e.g. AppFoo defined
- 	 AVPs.  In this case the Application Name can be looked up and associated to the defined AVP table.</t>
-   	 <t>Gap 5 can be partially closed by following a pattern similar to Result-Codes but this does not resolve all
-   	 uses cases.</t>
-  	    <t>
-	    <figure anchor="fig_5" title="Example Enumeration AVP">
+   </t>  
+   <t>GAP 1 is closed in line 1.  GAP 3 is closed in lines 1 through 3 while GAP 4
+   is closed by lines 5 through 7.</t>
+   <t>GAP 2 can be closed by using a common discernable Table Name format, e.g. AppFoo defined
+   AVPs.  In this case the Application Name can be looked up and associated to the defined AVP table.</t>
+     <t>Gap 5 can be partially closed by following a pattern similar to Result-Codes but this does not resolve all
+     uses cases.</t>
+       <t>
+     <figure anchor="fig_5" title="Example Enumeration AVP">
             <artwork align="center"><![CDATA[
 Result-Codes ::= <Diameter Enumeration: 123, 45678>
-  Label_1	(0)
+  Label_1 (0)
   LABEL_Two (2)
-              	]]></artwork>
+               ]]></artwork>
           <postamble></postamble>
        </figure>
- 	 </t> 	  	 
- 	 <t>Further work is required to comprehensively cover all Enumeration Use Cases.</t>
+   </t>      
+   <t>Further work is required to comprehensively cover all Enumeration Use Cases.</t>
   </section>
 </section>
 <section anchor="IANA" title="IANA Considerations">
@@ -909,175 +925,193 @@ Result-Codes ::= <Diameter Enumeration: 123, 45678>
      &I-D.bertz-dime-rfc4006bis;
      &I-D.ietf-dime-load;
      
-	<reference anchor="TGPP.29.214">
+ <reference anchor="TGPP.29.214">
      <front>
-     	<title>Policy and charging control over Rx reference point</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.214 14.3.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29214.htm"/>
+      <title>Policy and charging control over Rx reference point</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.214 14.3.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29214.htm"/>
      </reference>
 
-	<reference anchor="TGPP.29.345">
+ <reference anchor="TGPP.29.345">
      <front>
-     	<title>Inter-Proximity-services (Prose) function signalling aspects; Stage 3</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="16" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.345 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29345.htm"/>
+      <title>Inter-Proximity-services (Prose) function signalling aspects; Stage 3</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.345 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29345.htm"/>
      </reference>
 
-	<reference anchor="TGPP.29.344">
+ <reference anchor="TGPP.29.344">
      <front>
-     	<title>Proximity-services (ProSe) function to Home Subscriber Server (HSS) aspects; Stage 3</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="16" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.344 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29344.htm"/>
+      <title>Proximity-services (ProSe) function to Home Subscriber Server (HSS) aspects; Stage 3</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.344 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29344.htm"/>
      </reference>
 
-	<reference anchor="TGPP.29.343">
+ <reference anchor="TGPP.29.343">
      <front>
-     	<title>Proximity-services (ProSe) function to ProSe application server aspects (PC2); Stage 3</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.343 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29343.htm"/>
+      <title>Proximity-services (ProSe) function to ProSe application server aspects (PC2); Stage 3</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.343 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29343.htm"/>
      </reference>
 
-	<reference anchor="TGPP.29.338">
+ <reference anchor="TGPP.29.338">
      <front>
-     	<title>Diameter based protocols to support Short Message Service (SMS) capable Mobile Management Entities (MMEs)</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="16" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.338 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29338.htm"/>
+      <title>Diameter based protocols to support Short Message Service (SMS) capable Mobile Management Entities (MMEs)</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.338 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29338.htm"/>
      </reference>
 
-	<reference anchor="TGPP.29.337">
+ <reference anchor="TGPP.29.337">
      <front>
-     	<title>Diameter-based T4 Interface for communications with packet data networks and applications</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="16" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.337 14.0.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29337.htm"/>
+      <title>Diameter-based T4 Interface for communications with packet data networks and applications</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.337 14.0.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29337.htm"/>
      </reference>
 
-	<reference anchor="TGPP.29.336">
+ <reference anchor="TGPP.29.336">
      <front>
-     	<title>Home Subscriber Server (HSS) diameter interfaces for interworking with packet data networks and applications</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="15" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.336 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29336.htm"/>
+      <title>Home Subscriber Server (HSS) diameter interfaces for interworking with packet data networks and applications</title>
+      <author><organization>3GPP</organization></author>
+      <date day="15" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.336 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29336.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.329">
      <front>
-     	<title>Sh interface based on the Diameter protocol; Protocol details</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="16" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.329 14.2.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29329.htm"/>
+      <title>Sh interface based on the Diameter protocol; Protocol details</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.329 14.2.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29329.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.154">
      <front>
-     	<title>Service capability exposure functionality over Nt reference point</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.154 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29154.htm"/>
+      <title>Service capability exposure functionality over Nt reference point</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.154 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29154.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.215">
      <front>
-     	<title>Policy and Charging Control (PCC) over S9 reference point; Stage 3</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.215 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29215.htm"/>
+      <title>Policy and Charging Control (PCC) over S9 reference point; Stage 3</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.215 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29215.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.368">
      <front>
-     	<title>Tsp interface protocol between the MTC Interworking Function (MTC-IWF) and Service Capability Server (SCS)</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.368 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29368.htm"/>
+      <title>Tsp interface protocol between the MTC Interworking Function (MTC-IWF) and Service Capability Server (SCS)</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.368 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29368.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.128">
      <front>
-     	<title>Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) interfaces for interworking with packet data networks and applications</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="16" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.128 14.2.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29128.htm"/>
+      <title>Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) interfaces for interworking with packet data networks and applications</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.128 14.2.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29128.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.173">
      <front>
-     	<title>Location Services (LCS); Diameter-based SLh interface for Control Plane LCS</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="16" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.173 14.0.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29173.htm"/>
+      <title>Location Services (LCS); Diameter-based SLh interface for Control Plane LCS</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.173 14.0.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29173.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.217">
      <front>
-     	<title>Policy and Charging Control (PCC); Congestion reporting over Np reference point</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.217 14.1.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29217.htm"/>
+      <title>Policy and Charging Control (PCC); Congestion reporting over Np reference point</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.217 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29217.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.273">
      <front>
-     	<title>Evolved Packet System (EPS); 3GPP EPS AAA interfaces</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="15" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.273 14.2.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29273.htm"/>
+      <title>Evolved Packet System (EPS); 3GPP EPS AAA interfaces</title>
+      <author><organization>3GPP</organization></author>
+      <date day="15" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.273 14.2.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29273.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.272">
      <front>
-     	<title>Evolved Packet System (EPS); Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) related interfaces based on Diameter protocol</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="15" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.272 14.3.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29272.htm"/>
+      <title>Evolved Packet System (EPS); Mobility Management Entity (MME) and Serving GPRS Support Node (SGSN) related interfaces based on Diameter protocol</title>
+      <author><organization>3GPP</organization></author>
+      <date day="15" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.272 14.3.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29272.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.061">
      <front>
-     	<title>Policy and Charging Control (PCC); Reference points</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.061 14.3.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29061.htm"/>
+      <title>Policy and Charging Control (PCC); Reference points</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.061 14.3.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29061.htm"/>
      </reference>
 
      <reference anchor="TGPP.29.212">
      <front>
-     	<title>Policy and Charging Control (PCC); Reference points</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="29.212 14.3.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/29212.htm"/>
+      <title>Policy and Charging Control (PCC); Reference points</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.212 14.3.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29212.htm"/>
      </reference>
      
      <reference anchor="TGPP.32.299">
      <front>
-     	<title>Telecommunication management; Charging management; Diameter charging applications</title>
-     	<author><organization>3GPP</organization></author>
-     	<date day="17" month="March" year="2017"/></front> 
-     	<seriesInfo name="3GPP TS" value="32.299 14.3.0"/>
-     	<format type="HTML" target="http://www.3gpp.org/DynaReport/32299.htm"/>
+      <title>Telecommunication management; Charging management; Diameter charging applications</title>
+      <author><organization>3GPP</organization></author>
+      <date day="17" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="32.299 14.3.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/32299.htm"/>
+     </reference>
+     
+     <reference anchor="TGPP.29.229">
+     <front>
+      <title>Cx and Dx interfaces based on the Diameter protocol; Protocol details</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.229 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29229.htm"/>
+     </reference>
+     
+    <reference anchor="TGPP.29.468">
+     <front>
+      <title>Group Communication System Enablers for LTE (GCSE_LTE); MB2 reference point; Stage 3</title>
+      <author><organization>3GPP</organization></author>
+      <date day="16" month="March" year="2017"/></front> 
+      <seriesInfo name="3GPP TS" value="29.468 14.1.0"/>
+      <format type="HTML" target="http://www.3gpp.org/DynaReport/29468.htm"/>
      </reference>
    </references>
  </back>
